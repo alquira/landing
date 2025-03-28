@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vende tu casa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Lato', sans-serif;
+    }
+
+    body {
+      color: white;
+      background: url('https://i.postimg.cc/qqWNGBPy/A-adir-un-t-tulo-1.jpg') no-repeat center center/cover;
+      min-height: 100vh;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .left {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      height: 45px;
+    }
+
+    .lang-selector {
+      margin-left: 15px;
+      padding: 8px;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    .phone {
+        font-weight: 600;
+    font-size: 18px;
+    line-height: 23px;
+    color: rgb(0, 0, 0);
+    margin: 0px 8px;
+    }
+
+    .hero {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 80px 20px;
+      text-align: center;
+      flex-direction: column;
+    }
+
+    .hero-box {
+        background: rgba(54, 50, 50, 0.6);
+      padding: 50px 40px;
+      border-radius: 20px;
+      max-width: 700px;
+      width: 100%;
+      text-align: center;
+      transition: all 0.3s ease-in-out;
+    }
+
+    h1 {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 30px;
+    }
+
+    .cta-button {
+      background-color: #143c3c;
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background-color: #0e2b2b;
+    }
+
+    .features {
+      text-align: left;
+      list-style: none;
+      margin-bottom: 40px;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .media-logos {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .media-logos img {
+      height: 10px;
+      filter: brightness(0) invert(1);
+    }
+
+    #address-section {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 50px;
+      background: rgba(54, 50, 50, 0.6);
+      padding: 40px 30px;
+      border-radius: 20px;
+      max-width: 700px;
+      width: 100%;
+      transition: all 0.4s ease;
+    }
+
+    #address-section.show {
+      display: flex;
+    }
+
+    #address-section h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      border-bottom: 2px solid white;
+      padding-bottom: 5px;
+    }
+
+    #address-input {
+      padding: 12px;
+      width: 100%;
+      max-width: 400px;
+      border-radius: 6px;
+      border: none;
+      font-size: 16px;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .phone {
+        align-self: flex-end;
+      }
+
+      .hero-box, #address-section {
+        padding: 30px 20px;
+      }
+    }
+
+    p.info {
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    form {
+        display: none;
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .form-group input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-bottom: 1px solid #ccc;
+      font-size: 16px;
+      background: transparent;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-bottom: 2px solid #333;
+    }
+
+    #map {
+      width: 100%;
+      height: 300px;
+      border-radius: 8px;
+      margin: 20px 0;
+      border: 1px solid #ddd;
+    }
+
+    #confirm-btn {
+      background-color: #ccc;
+      color: #fff;
+      border: none;
+      padding: 15px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      width: 100%;
+      cursor: not-allowed;
+      transition: background 0.3s;
+    }
+
+    #confirm-btn.active {
+      background-color: #143c3c;
+      cursor: pointer;
+    }
+
+    label {
+      font-size: 14px;
+      color: #333;
+    }
+
+    .form-section {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="left">
+      <img src="https://i.postimg.cc/YCm37JXX/Copia-de-Sin-t-tulo-1080-x-1350-px.png" alt="logo" class="logo" />
+      <select class="lang-selector">
+        <option value="es">ES</option>
+        <option value="en">EN</option>
+      </select>
+    </div>
+    <div class="right">
+      <span class="phone">📞 +34 680 83 49 80</span>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-box" id="hero-box">
+      <h1>Vende tu casa en 7 días</h1>
+      <button class="cta-button" onclick="mostrarFormulario()">Recibe una oferta inicial</button>
+      <ul class="features">
+        <li>Te hacemos una oferta en 24h</li>
+        <li>Compramos tu casa en una semana</li>
+        <li>Nos encargamos de todo el papeleo</li>
+      </ul>
+      <div class="media-logos">
+        <img src="https://public.clikaliaes.com/images/common/forbes.png" alt="Forbes" />
+        <img src="https://public.clikaliaes.com/images/common/milenio.png" alt="Milenio" />
+        <img src="https://public.clikaliaes.com/images/common/eleconomista.png" alt="El Economista" />
+        <img src="https://public.clikaliaes.com/images/common/expansion.png" alt="Expansión" />
+      </div>
+    </div>
+
+    <div id="address-section">
+      <h2>Introduce tu dirección</h2>
+      <input type="text" id="address-input" placeholder="Ej: Calle Mayor 123, Madrid" />
+    </div>
+  </section>
+
+
+  
+  <form id="direccion-form">
+    <h2>¿Dónde está ubicada la vivienda?</h2>
+    <p class="info">¿Por qué necesitamos esta información?</p>
+
+    <div class="form-group">
+      <div class="form-section">
+        <label>Dirección *</label>
+        <input type="text" id="direccion" placeholder="Ej: Calle Mayor 123" required />
+      </div>
+      <div class="form-section">
+        <label>Ciudad *</label>
+        <input type="text" id="ciudad" placeholder="Madrid" required />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input type="text" id="cp" placeholder="C.P. *" required />
+      <input type="text" id="numero" placeholder="Número *" required />
+      <input type="text" id="bloque" placeholder="Bloque" />
+      <input type="text" id="escalera" placeholder="Escalera" />
+      <input type="text" id="piso" placeholder="Piso *" required />
+      <input type="text" id="puerta" placeholder="Puerta *" required />
+    </div>
+
+    <div class="form-group">
+      <input type="text" id="idealista" placeholder="Introduce tu enlace de Idealista (opcional)" />
+    </div>
+
+    <div id="map"></div>
+
+    <button type="submit" id="confirm-btn" disabled>Confirmar dirección</button>
+  </form>
+
+  <script>
+    function mostrarFormulario() {
+      const section = document.getElementById('address-section');
+      const sliderOpaco = document.getElementById('hero-box');
+      section.classList.add('show');
+      sliderOpaco.style.display = "none";
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+
+
+
+
+
+    const inputs = document.querySelectorAll('#direccion-form input[required]');
+    const btn = document.getElementById('confirm-btn');
+    const direccionInput = document.getElementById('direccion');
+    const ciudadInput = document.getElementById('ciudad');
+    const mapFrame = document.createElement('iframe');
+    const mapContainer = document.getElementById('map');
+
+    function updateMap() {
+      const direccion = direccionInput.value.trim();
+      const ciudad = ciudadInput.value.trim();
+
+      if (direccion && ciudad) {
+        const query = encodeURIComponent(`${direccion}, ${ciudad}`);
+        mapFrame.src = `https://www.google.com/maps/embed/v1/place?q=${query}&key=AIzaSyD-vTuEjzExAMPLEKEY123`; // 🔐 Sustituye por tu API Key real si necesitas control total
+        mapFrame.width = "100%";
+        mapFrame.height = "100%";
+        mapFrame.style.border = "0";
+        mapContainer.innerHTML = "";
+        mapContainer.appendChild(mapFrame);
+      }
+    }
+
+    function validarFormulario() {
+      let allFilled = true;
+      inputs.forEach(input => {
+        if (!input.value.trim()) allFilled = false;
+      });
+
+      if (allFilled) {
+        btn.disabled = false;
+        btn.classList.add('active');
+        btn.removeAttribute('disabled');
+      } else {
+        btn.disabled = true;
+        btn.classList.remove('active');
+      }
+
+      updateMap();
+    }
+
+    inputs.forEach(input => {
+      input.addEventListener('input', validarFormulario);
+    });
+
+    document.getElementById('direccion-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      alert("¡Dirección confirmada!");
+    });
+  </script>
+
+</body>
+</html>
