@@ -15,8 +15,6 @@
 
     body {
       color: white;
-      background: url('https://i.postimg.cc/qqWNGBPy/A-adir-un-t-tulo-1.jpg') no-repeat center center/cover;
-      min-height: 100vh;
     }
 
     header {
@@ -58,6 +56,7 @@
       padding: 80px 20px;
       text-align: center;
       flex-direction: column;
+      background: url('https://i.postimg.cc/qqWNGBPy/A-adir-un-t-tulo-1.jpg') no-repeat center center/cover;
     }
 
     .hero-box {
@@ -110,7 +109,6 @@
     }
 
     .media-logos img {
-      height: 10px;
       filter: brightness(0) invert(1);
     }
 
@@ -236,6 +234,303 @@
     .form-section {
       width: 100%;
     }
+
+
+    #pasos {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 60px 20px;
+  text-align: center;
+}
+
+#pasos h2 {
+  color: #222;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+#pasos p {
+  color: #444;
+  font-size: 16px;
+  margin-bottom: 40px;
+}
+
+.pasos-container {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+.paso {
+  text-align: center;
+  color: #aaa;
+  transition: color 0.3s ease;
+}
+
+.paso:hover {
+  color: #000;
+  cursor: pointer;
+}
+
+.paso .numero {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.paso .icono {
+  margin-bottom: 10px;
+}
+
+.paso .texto {
+  font-weight: 700;
+}
+
+
+.numeros {
+  position: relative;
+  background-image: url('https://i.postimg.cc/8cXNhqsY/Dise-o-sin-t-tulo-1.jpg');
+  background-size: cover;
+  background-position: center;
+  padding: 80px 20px;
+  text-align: center;
+  color: #111;
+}
+
+.numeros::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  z-index: 1;
+}
+
+.numeros .titulo,
+.numeros .subtitulo,
+.numeros .cards,
+.numeros .cta-num {
+  position: relative;
+  z-index: 2;
+}
+
+.numeros .titulo {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.numeros .subtitulo {
+  font-size: 16px;
+  margin-bottom: 40px;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+.card {
+  background-color: #e3edf1;
+  padding: 30px 20px;
+  border-radius: 16px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  min-width: 220px;
+  flex: 1 1 200px;
+  max-width: 260px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.cantidad {
+  font-size: 28px;
+  font-weight: 800;
+  color: #143c3c;
+  margin-bottom: 10px;
+}
+
+.descripcion {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.cta-num {
+  background-color: #4e6d6d;
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.cta-num:hover {
+  background-color: #143c3c;
+}
+
+.testimonios {
+  padding: 80px 20px;
+  text-align: center;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.testimonios h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.testimonios p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 40px;
+}
+
+.carousel-wrapper {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto 30px auto;
+}
+
+.carousel {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.5s ease;
+}
+
+.review {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 30px 20px;
+  min-width: 300px;
+  max-width: 100%;
+  flex: 0 0 100%;
+  transition: transform 0.3s ease;
+  opacity: 0.6;
+  transform: scale(0.95);
+}
+
+.review.active {
+  transform: scale(1.05);
+  opacity: 1;
+  z-index: 2;
+}
+
+.review h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+.stars {
+  color: gold;
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.review p {
+  font-size: 14px;
+  color: #666;
+}
+
+.nav {
+  background: none;
+  border: none;
+  font-size: 140px;
+  color: #455;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 10;
+  transition: color 0.3s;
+}
+
+.nav:hover {
+  color: #000;
+}
+
+.prev {
+  left: -10px;
+}
+
+.next {
+  right: -10px;
+}
+
+.cta-reviews {
+  background-color: #4e6d6d;
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.cta-reviews:hover {
+  background-color: #143c3c;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .review {
+    flex: 0 0 calc(33.333% - 20px);
+  }
+}
+
+
+.faq {
+  background-color: #1b1b1b;
+  color: #f5f5f5;
+  padding: 60px 20px;
+  text-align: left;
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 12px;
+}
+
+.faq h2 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 40px;
+  font-weight: 700;
+}
+
+.faq-item {
+  margin-bottom: 30px;
+}
+
+.question {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.answer {
+  border-top: 2px solid #f5f5f5;
+  margin-top: 5px;
+  padding-top: 10px;
+  font-size: 15px;
+  color: #dcdcdc;
+}
+
+
   </style>
 </head>
 <body>
@@ -255,13 +550,13 @@
 
   <section class="hero">
     <div class="hero-box" id="hero-box">
-      <h1>Vende tu casa en 7 días</h1>
-      <button class="cta-button" onclick="mostrarFormulario()">Recibe una oferta inicial</button>
-      <ul class="features">
-        <li>Te hacemos una oferta en 24h</li>
-        <li>Compramos tu casa en una semana</li>
-        <li>Nos encargamos de todo el papeleo</li>
-      </ul>
+      <h1>💰 Vende tu casa en 24-48h y recibe el dinero al instante</h1>
+        <button class="cta-button" onclick="mostrarFormulario()">Recibir mi oferta inmediata</button>
+        <ul class="features">
+          <li>✅ Oferta en menos de 24 horas</li>
+          <li>✅ Dinero en tu cuenta en menos de 7 días</li>
+          <li>✅ Sin inmobiliarias, sin comisiones, sin esperas</li>
+        </ul>
       <div class="media-logos">
         <img src="https://public.clikaliaes.com/images/common/forbes.png" alt="Forbes" />
         <img src="https://public.clikaliaes.com/images/common/milenio.png" alt="Milenio" />
@@ -310,6 +605,159 @@
 
     <button type="submit" id="confirm-btn" disabled>Confirmar dirección</button>
   </form>
+
+
+
+  <section id="pasos">
+    <h2>Vender tu casa puede ser así sencillo</h2>
+    <p>Sigue estos tres pasos y podrás decir: ¡casa vendida!</p>
+    <div class="pasos-container">
+      
+      <!-- Paso 1 -->
+      <div class="paso">
+        <div class="numero">01</div>
+        <div class="icono">
+          <svg width="60" height="60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 10h40v40H10z" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </div>
+        <p class="texto">Cuéntanos cómo es tu casa</p>
+      </div>
+  
+      <!-- Paso 2 -->
+      <div class="paso">
+        <div class="numero">02</div>
+        <div class="icono">
+          <svg width="60" height="60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 15h30v30H15z" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </div>
+        <p class="texto">Recibe una oferta en 24h</p>
+      </div>
+  
+      <!-- Paso 3 -->
+      <div class="paso">
+        <div class="numero">03</div>
+        <div class="icono">
+          <svg width="60" height="60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 20h20v20H20z" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </div>
+        <p class="texto">Firma la venta en 7 días</p>
+      </div>
+  
+    </div>
+  </section>
+  
+
+  <section class="numeros">
+    <h2 class="titulo">Números que dicen mucho</h2>
+    <p class="subtitulo">Estos datos son la prueba de que vender tu casa a Adqira, es la mejor decisión que puedes tomar</p>
+  
+    <div class="cards">
+      <div class="card">
+        <div class="cantidad" data-target="40000">+ 0</div>
+        <p class="descripcion">ofertas realizadas</p>
+      </div>
+      <div class="card">
+        <div class="cantidad" data-target="5000">+ 0</div>
+        <p class="descripcion">clientes satisfechos</p>
+      </div>
+      <div class="card">
+        <div class="cantidad" data-target="1000">+ 0</div>
+        <p class="descripcion">visitas virtuales al mes</p>
+      </div>
+    </div>
+  
+    <button class="cta-num">Quiero vender mi casa</button>
+  </section>
+
+  <section class="testimonios">
+    <h2>Testimonios reales</h2>
+    <p>📌 Lo que dicen nuestros clientes</p>
+    
+  
+    <div class="carousel-wrapper">
+      <button class="nav prev">‹</button>
+  
+      <div class="carousel">
+        <div class="review">
+          <h4>María G.</h4>
+          <div class="stars">★★★★★</div>
+          <p>“Necesitaba vender rápido mi casa después de un divorcio y con ADQIRA recibí una oferta en 48 horas. En menos de una semana ya tenía el 10% en mi cuenta. Totalmente recomendado.”</p>
+        </div>
+        
+        <div class="review">
+          <h4>Carlos P.</h4>
+          <div class="stars">★★★★★</div>
+          <p>“Herede una casa y no podía mantenerla. Gracias a ADQIRA la vendí sin complicaciones y sin pagar comisiones abusivas.”</p>
+        </div>
+        
+        <div class="review">
+          <h4>Antonio R.</h4>
+          <div class="stars">★★★★★</div>
+          <p>“Llevaba meses intentando vender con una inmobiliaria sin éxito. Con ADQIRA todo fue rápido y sin complicaciones.”</p>
+        </div>
+        <div class="review">
+          <h4>Iván Serrano</h4>
+          <div class="stars">★★★★★</div>
+          <p>No podríamos estar más satisfechos con Adqira. Su eficiencia impecable y trato amigable nos brindaron una experiencia sin preocupaciones.</p>
+        </div>
+        <div class="review">
+          <h4>Iván Serrano</h4>
+          <div class="stars">★★★★★</div>
+          <p>No podríamos estar más satisfechos con Adqira. Su eficiencia impecable y trato amigable nos brindaron una experiencia sin preocupaciones.</p>
+        </div>
+        <div class="review">
+          <h4>Iván Serrano</h4>
+          <div class="stars">★★★★★</div>
+          <p>No podríamos estar más satisfechos con Adqira. Su eficiencia impecable y trato amigable nos brindaron una experiencia sin preocupaciones.</p>
+        </div>
+        <div class="review">
+          <h4>Javier Fernández</h4>
+          <div class="stars">★★★☆☆</div>
+          <p>El trato fue excelente, especialmente asesorando y resolviendo cualquier duda en todo el proceso hasta el mismo día de la firma.</p>
+        </div>
+  
+        <div class="review">
+          <h4>Adrián Blanco</h4>
+          <div class="stars">★★★★☆</div>
+          <p>Excelente servicio de Adqira. Nos ayudaron con toda la documentación y seguimiento del proceso de venta. Su orientación fue clave.</p>
+        </div>
+  
+        <!-- Puedes agregar más reseñas aquí -->
+      </div>
+  
+      <button class="nav next">›</button>
+    </div>
+  
+    <button class="cta-reviews">Quiero vender mi casa</button>
+  </section>
+  
+  <section class="faq">
+    <h2>Preguntas frecuentes</h2>
+  
+    <div class="faq-item">
+      <p class="question">¿En cuánto tiempo recibiré mi oferta?</p>
+      <p class="answer">Menos de 24 horas desde que nos envíes la información de tu casa.</p>
+    </div>
+  
+    <div class="faq-item">
+      <p class="question">¿Cuándo recibiré el dinero?</p>
+      <p class="answer">En menos de 7 días. Te hacemos una oferta, firmamos y te pagamos de inmediato.</p>
+    </div>
+  
+    <div class="faq-item">
+      <p class="question">¿Tengo que pagar comisiones?</p>
+      <p class="answer">No. No cobramos comisiones ni gastos ocultos.</p>
+    </div>
+  
+    <div class="faq-item">
+      <p class="question">¿Qué tipo de propiedades compran?</p>
+      <p class="answer">Compramos pisos, casas, chalets y cualquier tipo de inmueble en España.</p>
+    </div>
+  </section>
+  
 
   <script>
     function mostrarFormulario() {
@@ -372,6 +820,66 @@
       e.preventDefault();
       alert("¡Dirección confirmada!");
     });
+
+
+    function animateCounters() {
+    const counters = document.querySelectorAll('.cantidad');
+    counters.forEach(counter => {
+      const updateCount = () => {
+        const target = +counter.getAttribute('data-target');
+        const count = +counter.innerText.replace(/\D/g, '');
+        const increment = target / 80;
+
+        if (count < target) {
+          counter.innerText = '+ ' + Math.ceil(count + increment).toLocaleString();
+          setTimeout(updateCount, 25);
+        } else {
+          counter.innerText = '+ ' + target.toLocaleString();
+        }
+      };
+      updateCount();
+    });
+  }
+
+  // Ejecutar la animación cuando se cargue el DOM
+  document.addEventListener("DOMContentLoaded", animateCounters);
+
+
+  const carousel = document.querySelector('.carousel');
+  const reviews = document.querySelectorAll('.review');
+  const prevBtn = document.querySelector('.prev');
+  const nextBtn = document.querySelector('.next');
+
+  let index = 0;
+
+  function updateCarousel() {
+    const cardsToShow = window.innerWidth >= 768 ? 3 : 1;
+    const offset = index * -(100 / cardsToShow);
+    carousel.style.transform = `translateX(${offset}%)`;
+
+    reviews.forEach((review, i) => {
+      review.classList.remove('active');
+    });
+
+    const centerIndex = index + Math.floor(cardsToShow / 2);
+    if (reviews[centerIndex]) {
+      reviews[centerIndex].classList.add('active');
+    }
+  }
+
+  prevBtn.addEventListener('click', () => {
+    if (index > 0) index--;
+    updateCarousel();
+  });
+
+  nextBtn.addEventListener('click', () => {
+    const cardsToShow = window.innerWidth >= 768 ? 3 : 1;
+    if (index < reviews.length - cardsToShow) index++;
+    updateCarousel();
+  });
+
+  window.addEventListener('resize', updateCarousel);
+  document.addEventListener('DOMContentLoaded', updateCarousel);
   </script>
 
 </body>
