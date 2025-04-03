@@ -593,6 +593,13 @@ justify-content: center;
 }
 
 
+    #btn-confirmar-direccion.active {
+  background-color: #143c3c;
+  cursor: pointer;
+  color: white;
+}
+
+
   </style>
 </head>
 <body>
@@ -798,66 +805,31 @@ justify-content: center;
 
   
   <script>
-    function mostrarFormulario() {
-      const section = document.getElementById('address-section');
-      const sliderOpaco = document.getElementById('hero-box');
-      section.classList.add('show');
-      sliderOpaco.style.display = "none";
-      section.scrollIntoView({ behavior: "smooth" });
-    }
+    // Mostrar input para dirección
+  function mostrarFormulario() {
+    document.getElementById('address-section').classList.add('show');
+    document.getElementById('hero-box').style.display = "none";
+    document.getElementById('address-section').scrollIntoView({ behavior: "smooth" });
+  }
 
+  // Mostrar sección de dirección completa al hacer clic en "Continuar"
+  document.getElementById('btn-continuar-direccion').addEventListener('click', () => {
+    const seccionCompleta = document.querySelector('.direccion-completa');
+    seccionCompleta.style.display = 'block';
+    seccionCompleta.scrollIntoView({ behavior: 'smooth' });
+  });
 
+  // Validación para habilitar el botón "Confirmar dirección"
+  const campos = ['cp2', 'numero2', 'piso2', 'puerta2'];
+  const boton = document.getElementById('btn-confirmar-direccion');
 
-
-
-    const inputs = document.querySelectorAll('#direccion-form input[required]');
-    const btn = document.getElementById('confirm-btn');
-    const direccionInput = document.getElementById('direccion');
-    const ciudadInput = document.getElementById('ciudad');
-    const mapFrame = document.createElement('iframe');
-    const mapContainer = document.getElementById('map');
-
-    function updateMap() {
-      const direccion = direccionInput.value.trim();
-      const ciudad = ciudadInput.value.trim();
-
-      if (direccion && ciudad) {
-        const query = encodeURIComponent(`${direccion}, ${ciudad}`);
-        mapFrame.src = `https://www.google.com/maps/embed/v1/place?q=${query}&key=AIzaSyD-vTuEjzExAMPLEKEY123`; // 🔐 Sustituye por tu API Key real si necesitas control total
-        mapFrame.width = "100%";
-        mapFrame.height = "100%";
-        mapFrame.style.border = "0";
-        mapContainer.innerHTML = "";
-        mapContainer.appendChild(mapFrame);
-      }
-    }
-
-    function validarFormulario() {
-      let allFilled = true;
-      inputs.forEach(input => {
-        if (!input.value.trim()) allFilled = false;
-      });
-
-      if (allFilled) {
-        btn.disabled = false;
-        btn.classList.add('active');
-        btn.removeAttribute('disabled');
-      } else {
-        btn.disabled = true;
-        btn.classList.remove('active');
-      }
-
-      updateMap();
-    }
-
-    inputs.forEach(input => {
-      input.addEventListener('input', validarFormulario);
+  campos.forEach(id => {
+    document.getElementById(id).addEventListener('input', () => {
+      const todoLleno = campos.every(id => document.getElementById(id).value.trim() !== '');
+      boton.disabled = !todoLleno;
+      boton.classList.toggle('active', todoLleno);
     });
-
-    document.getElementById('direccion-form').addEventListener('submit', function (e) {
-      e.preventDefault();
-      alert("¡Dirección confirmada!");
-    });
+  });
 
 
     function animateCounters() {
@@ -920,29 +892,7 @@ justify-content: center;
   document.addEventListener('DOMContentLoaded', updateCarousel);
 
 
-    document.getElementById('btn-continuar-direccion').addEventListener('click', () => {
-  document.querySelector('.direccion-completa').style.display = 'block';
-  document.querySelector('.direccion-completa').scrollIntoView({ behavior: 'smooth' });
-});
-
-const camposObligatorios = ['cp2', 'numero2', 'piso2', 'puerta2'];
-const botonConfirmar = document.getElementById('btn-confirmar-direccion');
-
-camposObligatorios.forEach(id => {
-  document.getElementById(id).addEventListener('input', validarDireccionCompleta);
-});
-
-function validarDireccionCompleta() {
-  let completo = camposObligatorios.every(id => document.getElementById(id).value.trim() !== '');
-  if (completo) {
-    botonConfirmar.disabled = false;
-    botonConfirmar.classList.add('active');
-  } else {
-    botonConfirmar.disabled = true;
-    botonConfirmar.classList.remove('active');
-  }
-}
-
+   
   </script>
 
 </body>
