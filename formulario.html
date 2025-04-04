@@ -117,6 +117,7 @@
     }
 
     .tipo-vivienda {
+      display: none;
       margin: 40px auto;
       max-width: 900px;
       background: white;
@@ -222,10 +223,6 @@
     <div>3. Estado actual</div>
   </div>
 
-  <!-- Medidor de progreso -->
-  <div class="progreso-container">
-    <div class="progreso" id="progreso" style="--progreso: 10%">10%</div>
-  </div>
 
   <!-- Dirección completa -->
   <section class="direccion-completa">
@@ -239,9 +236,9 @@
       <input type="text" id="puerta2" placeholder="Puerta *" required />
     </div>
     <button id="btn-confirmar-direccion" class="cta-button" disabled>Confirmar dirección</button>
-  </section>
 
-  <!-- Tipo de vivienda -->
+
+     <!-- Tipo de vivienda -->
   <section class="tipo-vivienda">
     <h2>Tipo de vivienda</h2>
     <p>¿Por qué necesitamos esta información?</p>
@@ -257,6 +254,15 @@
     </div>
   </section>
 
+  </section>
+
+ 
+    <!-- Medidor de progreso -->
+  <div class="progreso-container">
+    <div class="progreso" id="progreso" style="--progreso: 10%">10%</div>
+  </div>
+
+
   <script>
     // Validación de dirección
     const campos = ['cp2', 'numero2', 'piso2', 'puerta2'];
@@ -270,6 +276,9 @@
         const completo = campos.every(id => document.getElementById(id).value.trim() !== '');
         btn.disabled = !completo;
         btn.classList.toggle('active', completo);
+
+        const tipoVivienda = document.querySelector(".tipo-vivienda");
+        tipoVivienda.style.display = "block";
 
         if (completo && progresoActual < 20) {
           progresoActual = 20;
