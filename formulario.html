@@ -243,7 +243,75 @@
   cursor: pointer;
 }
 
-    
+ .espacios-principales {
+  margin: 40px auto;
+  max-width: 900px;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  text-align: center;
+}
+
+.espacios-principales h2 {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.espacios-principales .subtitulo {
+  color: #888;
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+.contadores {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.contador {
+  flex: 1 1 200px;
+  text-align: center;
+}
+
+.contador img {
+  width: 60px;
+  margin-bottom: 15px;
+}
+
+.botones {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #edf2f2;
+  border-radius: 40px;
+  padding: 5px 20px;
+  gap: 20px;
+  font-weight: bold;
+  font-size: 20px;
+  color: #143c3c;
+  margin-bottom: 10px;
+}
+
+.botones button {
+  background: none;
+  border: none;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #143c3c;
+  padding: 5px 10px;
+}
+
+.botones button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+   
   </style>
 </head>
 <body>
@@ -334,6 +402,64 @@
 </section>
 
 
+
+  <section class="espacios-principales" style="display: none;">
+  <h2>Espacios principales</h2>
+  <p class="subtitulo">¿Cuál es la distribución de la vivienda?</p>
+
+  <div class="contadores">
+    <!-- Habitaciones -->
+    <div class="contador">
+      <img src="habitaciones.png" alt="Habitaciones">
+      <div class="botones">
+        <button class="menos">–</button>
+        <span class="valor" data-tipo="habitaciones">1</span>
+        <button class="mas">+</button>
+      </div>
+      <p>Habitaciones</p>
+    </div>
+
+    <!-- Baños -->
+    <div class="contador">
+      <img src="banos.png" alt="Baños">
+      <div class="botones">
+        <button class="menos">–</button>
+        <span class="valor" data-tipo="banos">1</span>
+        <button class="mas">+</button>
+      </div>
+      <p>Baños</p>
+    </div>
+
+    <!-- Ascensor -->
+    <div class="contador">
+      <img src="ascensor.png" alt="Ascensor">
+      <div class="botones">
+        <button class="menos">–</button>
+        <span class="valor" data-tipo="ascensor">0</span>
+        <button class="mas">+</button>
+      </div>
+      <p>Ascensor</p>
+    </div>
+
+    <!-- Garaje -->
+    <div class="contador">
+      <img src="garaje.png" alt="Garaje">
+      <div class="botones">
+        <button class="menos">–</button>
+        <span class="valor" data-tipo="garaje">0</span>
+        <button class="mas">+</button>
+      </div>
+      <p>Garaje</p>
+    </div>
+  </div>
+
+  <button id="btn-continuar-espacios" class="cta-button" style="margin-top: 30px;">Continuar</button>
+</section>
+
+
+  
+
+
     <!-- Medidor de progreso -->
   <div class="progreso-container">
     <div class="progreso" id="progreso" style="--progreso: 10%">10%</div>
@@ -419,7 +545,7 @@ opcionesExterior.forEach(op => {
   });
 });
 
-// Botón continuar superficie
+// Mostrar sección espacios principales al continuar desde superficie
 document.getElementById('btn-superficie').addEventListener('click', () => {
   if (progresoActual < 50) {
     progresoActual = 50;
@@ -427,9 +553,41 @@ document.getElementById('btn-superficie').addEventListener('click', () => {
     progreso.innerText = progresoActual + '%';
   }
 
-  alert('✅ Pregunta 4 completada. Puedes continuar al siguiente paso...');
-  // Aquí podrías ocultar esta sección y mostrar la siguiente
+  document.querySelector('.superficie-vivienda').style.display = 'none';
+  document.querySelector('.espacios-principales').style.display = 'block';
 });
+
+// Contadores
+document.querySelectorAll('.contador').forEach(contador => {
+  const valor = contador.querySelector('.valor');
+  const menos = contador.querySelector('.menos');
+  const mas = contador.querySelector('.mas');
+
+  menos.addEventListener('click', () => {
+    let numero = parseInt(valor.innerText);
+    if (numero > 0) {
+      valor.innerText = numero - 1;
+    }
+  });
+
+  mas.addEventListener('click', () => {
+    let numero = parseInt(valor.innerText);
+    valor.innerText = numero + 1;
+  });
+});
+
+// Continuar después de esta sección
+document.getElementById('btn-continuar-espacios').addEventListener('click', () => {
+  if (progresoActual < 60) {
+    progresoActual = 60;
+    progreso.style.setProperty('--progreso', progresoActual + '%');
+    progreso.innerText = progresoActual + '%';
+  }
+
+  alert("¡Perfecto! Espacios guardados, puedes continuar al siguiente paso.");
+  // Aquí podrías ocultar esta sección y mostrar la siguiente.
+});
+
 
 
     
