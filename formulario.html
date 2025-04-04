@@ -148,6 +148,8 @@
   text-align: center;
   cursor: pointer;
   transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .opcion img {
@@ -194,6 +196,52 @@
       }
     }
 
+.superficie-vivienda {
+  display: none;
+  margin: 40px auto;
+  max-width: 900px;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.superficie-vivienda h2 {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.subtexto-superficie {
+  color: #777;
+  margin-bottom: 20px;
+}
+
+.superficie-valor-display {
+  font-size: 36px;
+  font-weight: bold;
+  margin: 30px 0;
+}
+
+.slider-superficie {
+  width: 100%;
+}
+
+.rango-limites {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-top: 10px;
+  color: #999;
+}
+
+.btn-superficie {
+  margin-top: 30px;
+  background-color: #143c3c;
+  color: white;
+  cursor: pointer;
+}
 
     
   </style>
@@ -266,6 +314,26 @@
   </div>
 </section>
 
+
+  <section class="superficie-vivienda">
+  <h2>Superficie de la vivienda</h2>
+  <p class="subtexto-superficie">Indica las dimensiones de tu vivienda en metros útiles.</p>
+
+  <div class="superficie-valor-display">
+    <span id="superficie-valor">100</span> m²
+  </div>
+
+  <input type="range" id="slider-superficie" min="30" max="175" value="100" step="1" class="slider-superficie">
+
+  <div class="rango-limites">
+    <span>30</span>
+    <span>+175</span>
+  </div>
+
+  <button id="btn-superficie" class="cta-button btn-superficie">Continuar</button>
+</section>
+
+
     <!-- Medidor de progreso -->
   <div class="progreso-container">
     <div class="progreso" id="progreso" style="--progreso: 10%">10%</div>
@@ -331,10 +399,51 @@
         progreso.innerText = progresoActual + '%';
       }
 
-      // Aquí podrías cargar la siguiente pregunta o redirigir
-      alert('¡Pregunta completada! Puedes continuar al siguiente paso...');
+      
     });
   });
+
+
+    // Mostrar valor dinámico del slider
+const slider = document.getElementById('slider-superficie');
+const valor = document.getElementById('superficie-valor');
+slider.addEventListener('input', () => {
+  valor.textContent = slider.value;
+});
+
+// Al seleccionar interior/exterior → mostrar superficie
+const opcionesExterior = document.querySelectorAll('.relacion-exterior .opcion');
+opcionesExterior.forEach(op => {
+  op.addEventListener('click', () => {
+    opcionesExterior.forEach(o => o.classList.remove('selected'));
+    op.classList.add('selected');
+
+    if (progresoActual < 40) {
+      progresoActual = 40;
+      progreso.style.setProperty('--progreso', progresoActual + '%');
+      progreso.innerText = progresoActual + '%';
+    }
+
+    // Ocultar esta sección, mostrar la siguiente
+    document.querySelector('.relacion-exterior').style.display = 'none';
+    document.querySelector('.superficie-vivienda').style.display = 'block';
+  });
+});
+
+// Botón continuar superficie
+document.getElementById('btn-superficie').addEventListener('click', () => {
+  if (progresoActual < 50) {
+    progresoActual = 50;
+    progreso.style.setProperty('--progreso', progresoActual + '%');
+    progreso.innerText = progresoActual + '%';
+  }
+
+  alert('✅ Pregunta 4 completada. Puedes continuar al siguiente paso...');
+  // Aquí podrías ocultar esta sección y mostrar la siguiente
+});
+
+
+    
 </script>
 
 
