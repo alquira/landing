@@ -1126,6 +1126,56 @@ btnFinal.addEventListener('click', (e) => {
 
 
 
+function enviarAZapier() {
+  const datos = {
+    direccion: {
+      cp: document.getElementById('cp2').value,
+      numero: document.getElementById('numero2').value,
+      bloque: document.getElementById('bloque2').value,
+      escalera: document.getElementById('escalera2').value,
+      piso: document.getElementById('piso2').value,
+      puerta: document.getElementById('puerta2').value
+    },
+    tipo_vivienda: document.querySelector('.tipo-vivienda .opcion.selected')?.dataset.tipo || '',
+    relacion_exterior: document.querySelector('.relacion-exterior .opcion.selected')?.dataset.exterior || '',
+    superficie: parseInt(document.getElementById('slider-superficie').value),
+    espacios: {
+      habitaciones: parseInt(document.querySelector('[data-tipo="habitaciones"]').textContent),
+      banos: parseInt(document.querySelector('[data-tipo="banos"]').textContent),
+      ascensor: parseInt(document.querySelector('[data-tipo="ascensor"]').textContent),
+      garaje: parseInt(document.querySelector('[data-tipo="garaje"]').textContent)
+    },
+    estado_vivienda: document.querySelector('.estado-opcion.selected')?.dataset.estado || '',
+    habitacion_actual: document.querySelector('.habitada-opcion.selected')?.dataset.habitada || '',
+    motivo_venta: document.querySelector('.motivo-opcion.selected')?.dataset.motivo || '',
+    precio_esperado: document.getElementById('precioEsperado').value,
+    contacto: {
+      nombre: document.getElementById('nombre').value,
+      apellidos: document.getElementById('apellidos').value,
+      email: document.getElementById('email').value,
+      telefono: document.getElementById('prefijo').value + document.getElementById('telefono').value
+    }
+  };
+
+  fetch("https://hooks.zapier.com/hooks/catch/20702921/2c0ticj/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(datos)
+  })
+  .then(response => {
+    if (response.ok) {
+      alert("✅ Datos enviados correctamente a Zapier.");
+    } else {
+      alert("❌ Error al enviar a Zapier.");
+    }
+  })
+  .catch(error => {
+    console.error("Error al enviar:", error);
+    alert("❌ Fallo de red al enviar los datos.");
+  });
+}
 
     
 </script>
