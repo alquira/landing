@@ -311,7 +311,72 @@
   opacity: 0.4;
   cursor: not-allowed;
 }
-   
+
+
+
+    .estado-vivienda {
+  margin: 40px auto;
+  max-width: 900px;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  text-align: center;
+}
+
+.estado-vivienda h2 {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.estado-vivienda .subtexto-superficie {
+  color: #888;
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+.estados {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.estado-opcion {
+  cursor: pointer;
+  padding: 20px;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  width: 220px;
+}
+
+.estado-opcion:hover {
+  border-color: #143c3c;
+}
+
+.estado-opcion img {
+  width: 60px;
+  margin-bottom: 10px;
+}
+
+.estado-opcion h4 {
+  font-size: 16px;
+  color: #143c3c;
+  margin-bottom: 5px;
+}
+
+.estado-opcion p {
+  font-size: 13px;
+  color: #777;
+}
+
+.estado-opcion.selected {
+  border-color: #143c3c;
+  background-color: #f0f8f7;
+}
+
   </style>
 </head>
 <body>
@@ -453,9 +518,34 @@
     </div>
   </div>
 
-  <button id="btn-continuar-espacios" class="cta-button" style="margin-top: 30px;">Continuar</button>
+  <button id="btn-continuar-espacios" class="cta-button active" style="margin-top: 30px;">Continuar</button>
 </section>
 
+
+  <section class="estado-vivienda" style="display: none;">
+  <h2>Estado de la vivienda</h2>
+  <p class="subtexto-superficie">Indica si tu vivienda necesita reformas</p>
+
+  <div class="estados">
+    <div class="estado-opcion" data-estado="reformado">
+      <img src="recien.png" alt="Recién reformado">
+      <h4>Recién reformado</h4>
+      <p>Menos de 6 años de antigüedad o reforma reciente</p>
+    </div>
+
+    <div class="estado-opcion" data-estado="buen">
+      <img src="buenestado.png" alt="Buen estado">
+      <h4>Buen estado</h4>
+      <p>Necesita pequeñas renovaciones de los acabados</p>
+    </div>
+
+    <div class="estado-opcion" data-estado="reforma">
+      <img src="cura.png" alt="Necesita reforma">
+      <h4>Necesita reforma</h4>
+      <p>Necesita reformas en la mayoría de las estancias</p>
+    </div>
+  </div>
+</section>
 
   
 
@@ -576,7 +666,7 @@ document.querySelectorAll('.contador').forEach(contador => {
   });
 });
 
-// Continuar después de esta sección
+// Al continuar desde espacios principales
 document.getElementById('btn-continuar-espacios').addEventListener('click', () => {
   if (progresoActual < 60) {
     progresoActual = 60;
@@ -584,9 +674,32 @@ document.getElementById('btn-continuar-espacios').addEventListener('click', () =
     progreso.innerText = progresoActual + '%';
   }
 
-  alert("¡Perfecto! Espacios guardados, puedes continuar al siguiente paso.");
-  // Aquí podrías ocultar esta sección y mostrar la siguiente.
+  document.querySelector('.espacios-principales').style.display = 'none';
+  document.querySelector('.estado-vivienda').style.display = 'block';
 });
+
+// Selección de estado de la vivienda
+const opcionesEstado = document.querySelectorAll('.estado-opcion');
+opcionesEstado.forEach(op => {
+  op.addEventListener('click', () => {
+    opcionesEstado.forEach(o => o.classList.remove('selected'));
+    op.classList.add('selected');
+
+    if (progresoActual < 70) {
+      progresoActual = 70;
+      progreso.style.setProperty('--progreso', progresoActual + '%');
+      progreso.innerText = progresoActual + '%';
+    }
+
+    // Delay antes de avanzar a siguiente paso
+    setTimeout(() => {
+      document.querySelector('.estado-vivienda').style.display = 'none';
+      // Aquí podrías mostrar la siguiente sección:
+      alert("✅ Estado guardado. Puedes continuar.");
+    }, 700);
+  });
+});
+
 
 
 
