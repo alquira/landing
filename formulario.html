@@ -429,6 +429,97 @@
   color: white;
 }
 
+
+    .motivo-venta {
+  margin: 40px auto;
+  max-width: 900px;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.motivo-venta h2 {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.motivo-venta .subtexto-superficie {
+  color: #888;
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+.motivos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.motivo-opcion {
+  background-color: #d4e3e6;
+  padding: 15px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  color: #143c3c;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.motivo-opcion:hover {
+  background-color: #bcd6db;
+}
+
+.motivo-opcion.selected {
+  background-color: #143c3c;
+  color: white;
+}
+
+.input-precio {
+  margin-bottom: 20px;
+  text-align: left;
+  max-width: 400px;
+  margin-inline: auto;
+}
+
+.input-precio label {
+  font-size: 14px;
+  color: #555;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.input-precio input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  font-size: 16px;
+  background: transparent;
+  transition: border-color 0.3s ease;
+}
+
+.input-precio input:focus {
+  outline: none;
+  border-bottom-color: #143c3c;
+}
+
+#btn-ver-oferta {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transition: all 0.3s ease;
+}
+
+#btn-ver-oferta.active {
+  background-color: #143c3c;
+  color: white;
+  cursor: pointer;
+}
+
+
   </style>
 </head>
 <body>
@@ -611,6 +702,26 @@
 </section>
 
 
+  <section class="motivo-venta" style="display: none;">
+  <h2>¿Por qué quieres vender?</h2>
+  <p class="subtexto-superficie">¿Por qué necesitamos esta información?</p>
+
+  <div class="motivos-grid">
+    <div class="motivo-opcion" data-motivo="comprar">Voy a comprar otra</div>
+    <div class="motivo-opcion" data-motivo="residencia">Cambio de residencia</div>
+    <div class="motivo-opcion" data-motivo="herencia">Herencia o Divorcio</div>
+    <div class="motivo-opcion" data-motivo="urgente">Necesidad urgente</div>
+  </div>
+
+  <div class="input-precio">
+    <label for="precioEsperado">Cuánto esperas recibir por tu vivienda *</label>
+    <input type="number" id="precioEsperado" placeholder="Ej. 200000" min="0">
+  </div>
+
+  <button id="btn-ver-oferta" class="cta-button" disabled>Ver oferta</button>
+</section>
+
+  
 
     <!-- Medidor de progreso -->
   <div class="progreso-container">
@@ -761,7 +872,7 @@ opcionesEstado.forEach(op => {
   });
 });
 
-// Manejar selección de habitada
+// Mostrar sección de motivo al terminar estado habitada
 const opcionesHabitada = document.querySelectorAll('.habitada-opcion');
 opcionesHabitada.forEach(op => {
   op.addEventListener('click', () => {
@@ -776,12 +887,51 @@ opcionesHabitada.forEach(op => {
 
     setTimeout(() => {
       document.querySelector('.estado-habitada').style.display = 'none';
-      alert('✅ Pregunta completada. Puedes continuar.');
-      // Aquí podrías mostrar la siguiente sección
+      document.querySelector('.motivo-venta').style.display = 'block';
     }, 600);
   });
 });
 
+// Selección de motivo
+const motivoOpciones = document.querySelectorAll('.motivo-opcion');
+let motivoSeleccionado = false;
+
+motivoOpciones.forEach(op => {
+  op.addEventListener('click', () => {
+    motivoOpciones.forEach(o => o.classList.remove('selected'));
+    op.classList.add('selected');
+    motivoSeleccionado = true;
+    validarOferta();
+  });
+});
+
+// Validar input y motivo
+const precioInput = document.getElementById('precioEsperado');
+const btnOferta = document.getElementById('btn-ver-oferta');
+
+precioInput.addEventListener('input', validarOferta);
+
+function validarOferta() {
+  const valor = precioInput.value.trim();
+  const esValido = motivoSeleccionado && valor !== '' && !isNaN(valor) && Number(valor) > 0;
+
+  btnOferta.disabled = !esValido;
+  btnOferta.classList.toggle('active', esValido);
+}
+
+// Al hacer clic en Ver oferta
+btnOferta.addEventListener('click', () => {
+  if (!btnOferta.disabled) {
+    if (progresoActual < 90) {
+      progresoActual = 90;
+      progreso.style.setProperty('--progreso', progresoActual + '%');
+      progreso.innerText = progresoActual + '%';
+    }
+
+    alert('🎉 ¡Gracias! Ya tenemos toda la info para calcular tu oferta.');
+    // Aquí puedes mostrar resumen final o enviar el formulario
+  }
+});
 
 
 
