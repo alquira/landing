@@ -812,23 +812,12 @@ justify-content: center;
     document.getElementById('address-section').scrollIntoView({ behavior: "smooth" });
   }
 
-  // Mostrar sección de dirección completa al hacer clic en "Continuar"
-  document.getElementById('btn-continuar-direccion').addEventListener('click', () => {
-    const seccionCompleta = document.querySelector('.direccion-completa');
-    seccionCompleta.style.display = 'block';
-    seccionCompleta.scrollIntoView({ behavior: 'smooth' });
-  });
+  // Redirigir a formulario.html al hacer clic en "Continuar"
+document.getElementById('btn-continuar-direccion').addEventListener('click', () => {
+  window.location.href = 'formulario.html';
+});
 
-  // Validación para habilitar el botón "Confirmar dirección"
-  const campos = ['cp2', 'numero2', 'piso2', 'puerta2'];
-  const boton = document.getElementById('btn-confirmar-direccion');
-
-  campos.forEach(id => {
-    document.getElementById(id).addEventListener('input', () => {
-      const todoLleno = campos.every(id => document.getElementById(id).value.trim() !== '');
-      boton.disabled = !todoLleno;
-      boton.classList.toggle('active', todoLleno);
-    });
+  
   });
 
 
