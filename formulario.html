@@ -377,6 +377,58 @@
   background-color: #f0f8f7;
 }
 
+
+    .estado-habitada {
+  margin: 40px auto;
+  max-width: 900px;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.estado-habitada h2 {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.estado-habitada .subtexto-superficie {
+  color: #888;
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+.opciones-habitada {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.habitada-opcion {
+  background: rgba(234, 240, 240, 0.7);
+  padding: 30px 25px;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 40% 60% 70% 30% / 30% 40% 60% 70%;
+  color: #4a5a5a;
+  cursor: pointer;
+  width: 150px;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.habitada-opcion:hover {
+  background-color: #d2e8e8;
+}
+
+.habitada-opcion.selected {
+  background-color: #143c3c;
+  color: white;
+}
+
   </style>
 </head>
 <body>
@@ -547,7 +599,17 @@
   </div>
 </section>
 
-  
+  <section class="estado-habitada" style="display: none;">
+  <h2>¿Está habitada actualmente?</h2>
+  <p class="subtexto-superficie">Selecciona quién vive en la vivienda.</p>
+
+  <div class="opciones-habitada">
+    <div class="habitada-opcion" data-habitada="libre">Está Libre</div>
+    <div class="habitada-opcion" data-habitada="alquilada">Está alquilada</div>
+    <div class="habitada-opcion" data-habitada="propietario">Vive el propietario</div>
+  </div>
+</section>
+
 
 
     <!-- Medidor de progreso -->
@@ -678,7 +740,7 @@ document.getElementById('btn-continuar-espacios').addEventListener('click', () =
   document.querySelector('.estado-vivienda').style.display = 'block';
 });
 
-// Selección de estado de la vivienda
+// Mostrar estado habitada después del estado de la vivienda
 const opcionesEstado = document.querySelectorAll('.estado-opcion');
 opcionesEstado.forEach(op => {
   op.addEventListener('click', () => {
@@ -691,12 +753,32 @@ opcionesEstado.forEach(op => {
       progreso.innerText = progresoActual + '%';
     }
 
-    // Delay antes de avanzar a siguiente paso
+    // Delay antes de mostrar la siguiente sección
     setTimeout(() => {
       document.querySelector('.estado-vivienda').style.display = 'none';
-      // Aquí podrías mostrar la siguiente sección:
-      alert("✅ Estado guardado. Puedes continuar.");
+      document.querySelector('.estado-habitada').style.display = 'block';
     }, 700);
+  });
+});
+
+// Manejar selección de habitada
+const opcionesHabitada = document.querySelectorAll('.habitada-opcion');
+opcionesHabitada.forEach(op => {
+  op.addEventListener('click', () => {
+    opcionesHabitada.forEach(o => o.classList.remove('selected'));
+    op.classList.add('selected');
+
+    if (progresoActual < 80) {
+      progresoActual = 80;
+      progreso.style.setProperty('--progreso', progresoActual + '%');
+      progreso.innerText = progresoActual + '%';
+    }
+
+    setTimeout(() => {
+      document.querySelector('.estado-habitada').style.display = 'none';
+      alert('✅ Pregunta completada. Puedes continuar.');
+      // Aquí podrías mostrar la siguiente sección
+    }, 600);
   });
 });
 
