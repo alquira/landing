@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulario</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Lato', sans-serif;
+    }
+
+  body {
+  background-color: #f7f7f7;
+  color: #333;
+}
+
+/* Estilo para la sección de dirección completa */
+.direccion-completa {
+  margin: 40px auto;
+  max-width: 900px;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Título de la sección */
+.direccion-completa h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #222;
+}
+
+/* Agrupación de los inputs */
+.form-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+/* Inputs de dirección */
+.form-group input {
+  flex: 1;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  background: transparent;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #143c3c;
+}
+
+/* Botón estilo CTA */
+.cta-button {
+  background-color: #ccc;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 10px;
+  width: 100%;
+  cursor: not-allowed;
+  transition: background-color 0.3s ease, cursor 0.3s ease;
+}
+
+/* Cuando el botón está activo */
+#btn-confirmar-direccion.active {
+  background-color: #143c3c;
+  cursor: pointer;
+}
+
+
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="left">
+      <img src="https://i.postimg.cc/YCm37JXX/Copia-de-Sin-t-tulo-1080-x-1350-px.png" alt="logo" class="logo" />
+      <select class="lang-selector">
+        <option value="es">ES</option>
+        <option value="en">EN</option>
+      </select>
+    </div>
+    <div class="right">
+      <span class="phone"></span>
+    </div>
+  </header>
+
+  
+  
+ <section class="direccion-completa" style="display: none; margin: 40px auto; max-width: 900px; background: white; padding: 30px; border-radius: 12px;">
+  <h2>Confirma tu dirección completa</h2>
+  <div class="form-group">
+    <input type="text" id="cp2" placeholder="C.P. *" required />
+    <input type="text" id="numero2" placeholder="Número *" required />
+    <input type="text" id="bloque2" placeholder="Bloque" />
+    <input type="text" id="escalera2" placeholder="Escalera" />
+    <input type="text" id="piso2" placeholder="Piso *" required />
+    <input type="text" id="puerta2" placeholder="Puerta *" required />
+  </div>
+  <button id="btn-confirmar-direccion" class="cta-button" style="width: 100%;" disabled>Confirmar dirección</button>
+</section>
+
+
+
+
+ 
+  
+  <script>
+   
+   
+  </script>
+
+</body>
+</html>
