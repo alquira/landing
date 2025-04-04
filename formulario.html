@@ -347,14 +347,20 @@
 
   let progresoActual = 10;
 
-  // Validar dirección
-  campos.forEach(id => {
-    document.getElementById(id).addEventListener('input', () => {
-      const completo = campos.every(id => document.getElementById(id).value.trim() !== '');
-      btn.disabled = !completo;
-      btn.classList.toggle('active', completo);
-    });
-  });
+function validarDireccionCompleta() {
+  const completo = campos.every(id => document.getElementById(id).value.trim() !== '');
+  btn.disabled = !completo;
+  btn.classList.toggle('active', completo);
+}
+
+// Ejecutar validación al cargar por si hay campos llenos
+validarDireccionCompleta();
+
+// Escuchar cambios en campos obligatorios
+campos.forEach(id => {
+  document.getElementById(id).addEventListener('input', validarDireccionCompleta);
+});
+
 
   // Al hacer clic en "Confirmar dirección"
   btn.addEventListener('click', () => {
@@ -386,24 +392,7 @@
     });
   });
 
-  // Relación con el exterior
-  const opcionesExterior = document.querySelectorAll('.relacion-exterior .opcion');
-  opcionesExterior.forEach(op => {
-    op.addEventListener('click', () => {
-      opcionesExterior.forEach(o => o.classList.remove('selected'));
-      op.classList.add('selected');
-
-      if (progresoActual < 40) {
-        progresoActual = 40;
-        progreso.style.setProperty('--progreso', progresoActual + '%');
-        progreso.innerText = progresoActual + '%';
-      }
-
-      
-    });
-  });
-
-
+ 
     // Mostrar valor dinámico del slider
 const slider = document.getElementById('slider-superficie');
 const valor = document.getElementById('superficie-valor');
