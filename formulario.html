@@ -138,37 +138,31 @@
     }
 
     .opciones {
-      display: flex;
-      justify-content: center;
-      gap: 60px;
-      margin-bottom: 30px;
-    }
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  margin-top: 20px;
+}
 
-    .opcion {
-      text-align: center;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
+.opcion {
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
 
-    .opcion img {
-      width: 100px;
-      height: auto;
-      margin-bottom: 10px;
-      opacity: 0.7;
-    }
+.opcion img {
+  width: 100px;
+  opacity: 0.7;
+  margin-bottom: 10px;
+}
 
-    .opcion span {
-      display: block;
-      font-weight: bold;
-      color: #333;
-    }
+.opcion.selected img {
+  opacity: 1;
+  transform: scale(1.1);
+  border: 2px solid #143c3c;
+  border-radius: 12px;
+}
 
-    .opcion.selected img {
-      opacity: 1;
-      transform: scale(1.1);
-      border: 2px solid #143c3c;
-      border-radius: 12px;
-    }
 
     .progreso-container {
       display: flex;
@@ -199,6 +193,9 @@
         gap: 20px;
       }
     }
+
+
+    
   </style>
 </head>
 <body>
@@ -254,7 +251,21 @@
     </div>
   </section>
 
- 
+<section class="relacion-exterior" style="display: none; margin: 40px auto; max-width: 900px; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+  <h2>Relación con el Exterior</h2>
+  <p>Indica si tu vivienda es interior o exterior</p>
+  <div class="opciones">
+    <div class="opcion" data-exterior="interior">
+      <img src="select3.png" alt="Interior">
+      <span>Interior</span>
+    </div>
+    <div class="opcion" data-exterior="exterior">
+      <img src="select4.png" alt="Exterior">
+      <span>Exterior</span>
+    </div>
+  </div>
+</section>
+
     <!-- Medidor de progreso -->
   <div class="progreso-container">
     <div class="progreso" id="progreso" style="--progreso: 10%">10%</div>
@@ -268,7 +279,7 @@
 
   let progresoActual = 10;
 
-  // Habilitar el botón solo si los campos obligatorios están llenos
+  // Validar dirección
   campos.forEach(id => {
     document.getElementById(id).addEventListener('input', () => {
       const completo = campos.every(id => document.getElementById(id).value.trim() !== '');
@@ -280,37 +291,52 @@
   // Al hacer clic en "Confirmar dirección"
   btn.addEventListener('click', () => {
     if (!btn.disabled) {
-      // Ocultar sección de dirección
       document.querySelector(".direccion-completa").style.display = "none";
-
-      // Mostrar sección de tipo de vivienda
       document.querySelector(".tipo-vivienda").style.display = "block";
-
-      // Aumentar progreso si aún no lo hemos hecho
-      if (progresoActual < 20) {
-        progresoActual = 20;
-        progreso.style.setProperty('--progreso', progresoActual + '%');
-        progreso.innerText = progresoActual + '%';
-      }
+      progresoActual = 20;
+      progreso.style.setProperty('--progreso', progresoActual + '%');
+      progreso.innerText = progresoActual + '%';
     }
   });
 
-  // Selección de tipo de vivienda
-  const opciones = document.querySelectorAll('.opcion');
-  opciones.forEach(op => {
+  // Tipo de vivienda → pasa a relación con el exterior
+  const opcionesVivienda = document.querySelectorAll('.tipo-vivienda .opcion');
+  opcionesVivienda.forEach(op => {
     op.addEventListener('click', () => {
-      opciones.forEach(o => o.classList.remove('selected'));
+      opcionesVivienda.forEach(o => o.classList.remove('selected'));
       op.classList.add('selected');
 
-      // Actualizar progreso
       if (progresoActual < 30) {
         progresoActual = 30;
         progreso.style.setProperty('--progreso', progresoActual + '%');
         progreso.innerText = progresoActual + '%';
       }
+
+      // Ocultar tipo vivienda, mostrar relación con exterior
+      document.querySelector('.tipo-vivienda').style.display = 'none';
+      document.querySelector('.relacion-exterior').style.display = 'block';
+    });
+  });
+
+  // Relación con el exterior
+  const opcionesExterior = document.querySelectorAll('.relacion-exterior .opcion');
+  opcionesExterior.forEach(op => {
+    op.addEventListener('click', () => {
+      opcionesExterior.forEach(o => o.classList.remove('selected'));
+      op.classList.add('selected');
+
+      if (progresoActual < 40) {
+        progresoActual = 40;
+        progreso.style.setProperty('--progreso', progresoActual + '%');
+        progreso.innerText = progresoActual + '%';
+      }
+
+      // Aquí podrías cargar la siguiente pregunta o redirigir
+      alert('¡Pregunta completada! Puedes continuar al siguiente paso...');
     });
   });
 </script>
+
 
 </body>
 </html>
