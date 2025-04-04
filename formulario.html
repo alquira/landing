@@ -519,7 +519,104 @@
   cursor: pointer;
 }
 
+.datos-contacto {
+  margin: 40px auto;
+  max-width: 600px;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  text-align: center;
+}
 
+.datos-contacto h2 {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.datos-contacto .subtexto-superficie {
+  color: #888;
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+.form-line {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-line label {
+  font-size: 14px;
+  color: #444;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-line input,
+.telefono-input input,
+.telefono-input select {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  background: transparent;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+input:focus,
+select:focus {
+  border-bottom-color: #143c3c;
+  outline: none;
+}
+
+.telefono-line .telefono-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.telefono-input select {
+  width: 80px;
+}
+
+.bandera {
+  font-size: 20px;
+}
+
+.checkboxes {
+  margin-top: 20px;
+  font-size: 14px;
+  text-align: left;
+  color: #666;
+}
+
+.checkboxes label {
+  display: block;
+  margin: 10px 0;
+}
+
+.checkboxes a {
+  color: #143c3c;
+  text-decoration: underline;
+}
+
+#btn-final {
+  margin-top: 20px;
+  width: 100%;
+  background-color: #ccc;
+  color: white;
+  cursor: not-allowed;
+}
+
+#btn-final.active {
+  background-color: #143c3c;
+  cursor: pointer;
+}
+
+
+    
   </style>
 </head>
 <body>
@@ -720,6 +817,52 @@
 
   <button id="btn-ver-oferta" class="cta-button" disabled>Ver oferta</button>
 </section>
+
+
+
+  <section class="datos-contacto" style="display: none;">
+  <h2>Datos de contacto</h2>
+  <p class="subtexto-superficie">Confirma tus datos para poder ver por cuánto estimamos la compra de tu vivienda.</p>
+
+  <form id="contacto-form">
+    <div class="form-line">
+      <label for="nombre">Nombre *</label>
+      <input type="text" id="nombre" required />
+    </div>
+
+    <div class="form-line">
+      <label for="apellidos">Apellidos *</label>
+      <input type="text" id="apellidos" required />
+    </div>
+
+    <div class="form-line">
+      <label for="email">Email *</label>
+      <input type="email" id="email" required />
+    </div>
+
+    <div class="form-line telefono-line">
+      <label>Teléfono Móvil *</label>
+      <div class="telefono-input">
+        <span class="bandera">🇪🇸</span>
+        <select id="prefijo">
+          <option value="+34">+34</option>
+          <option value="+33">+33</option>
+          <option value="+49">+49</option>
+        </select>
+        <input type="tel" id="telefono" required />
+      </div>
+    </div>
+
+    <button id="btn-final" class="cta-button" disabled>Continuar</button>
+
+    <div class="checkboxes">
+      <label><input type="checkbox" id="acepta" required /> Acepto el <a href="#">Aviso de Privacidad</a> y los <a href="#">Términos y Condiciones</a>.</label>
+      <label><input type="checkbox" id="promos" /> ¿Consientes el tratamiento de tus datos personales por parte del GRUPO CLIKALIA para ofrecerte información y promociones que puedan ser de tu interés?</label>
+    </div>
+  </form>
+</section>
+
+
 
   
 
@@ -932,6 +1075,55 @@ btnOferta.addEventListener('click', () => {
     // Aquí puedes mostrar resumen final o enviar el formulario
   }
 });
+
+
+// Mostrar datos de contacto tras "Ver oferta"
+document.getElementById('btn-ver-oferta').addEventListener('click', () => {
+  if (!btnOferta.disabled) {
+    document.querySelector('.motivo-venta').style.display = 'none';
+    document.querySelector('.datos-contacto').style.display = 'block';
+    
+
+    if (progresoActual < 100) {
+      progresoActual = 100;
+      progreso.style.setProperty('--progreso', progresoActual + '%');
+      progreso.innerText = progresoActual + '%';
+    }
+  }
+});
+
+// Validar formulario de contacto
+const nombre = document.getElementById('nombre');
+const apellidos = document.getElementById('apellidos');
+const email = document.getElementById('email');
+const telefono = document.getElementById('telefono');
+const acepta = document.getElementById('acepta');
+const btnFinal = document.getElementById('btn-final');
+
+function validarContacto() {
+  const valido =
+    nombre.value.trim() !== '' &&
+    apellidos.value.trim() !== '' &&
+    email.value.trim() !== '' &&
+    telefono.value.trim() !== '' &&
+    acepta.checked;
+
+  btnFinal.disabled = !valido;
+  btnFinal.classList.toggle('active', valido);
+}
+
+[nombre, apellidos, email, telefono, acepta].forEach(el =>
+  el.addEventListener('input', validarContacto)
+);
+acepta.addEventListener('change', validarContacto);
+
+// Evento final
+btnFinal.addEventListener('click', (e) => {
+  e.preventDefault();
+  alert('🎉 ¡Formulario completado! Nos pondremos en contacto contigo pronto.');
+  // Aquí podrías enviar los datos con fetch o mostrar resumen final
+});
+
 
 
 
