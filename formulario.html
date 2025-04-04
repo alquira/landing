@@ -264,45 +264,55 @@
 
 
   <script>
-    // Validación de dirección
-    const campos = ['cp2', 'numero2', 'piso2', 'puerta2'];
-    const btn = document.getElementById('btn-confirmar-direccion');
-    const progreso = document.getElementById('progreso');
+  const campos = ['cp2', 'numero2', 'piso2', 'puerta2'];
+  const btn = document.getElementById('btn-confirmar-direccion');
+  const progreso = document.getElementById('progreso');
 
-    let progresoActual = 10;
+  let progresoActual = 10;
 
-    campos.forEach(id => {
-      document.getElementById(id).addEventListener('input', () => {
-        const completo = campos.every(id => document.getElementById(id).value.trim() !== '');
-        btn.disabled = !completo;
-        btn.classList.toggle('active', completo);
-
-        const tipoVivienda = document.querySelector(".tipo-vivienda");
-        tipoVivienda.style.display = "block";
-
-        if (completo && progresoActual < 20) {
-          progresoActual = 20;
-          progreso.style.setProperty('--progreso', progresoActual + '%');
-          progreso.innerText = progresoActual + '%';
-        }
-      });
+  // Habilitar el botón solo si los campos obligatorios están llenos
+  campos.forEach(id => {
+    document.getElementById(id).addEventListener('input', () => {
+      const completo = campos.every(id => document.getElementById(id).value.trim() !== '');
+      btn.disabled = !completo;
+      btn.classList.toggle('active', completo);
     });
+  });
 
-    // Selección de tipo de vivienda
-    const opciones = document.querySelectorAll('.opcion');
-    opciones.forEach(op => {
-      op.addEventListener('click', () => {
-        opciones.forEach(o => o.classList.remove('selected'));
-        op.classList.add('selected');
+  // Al hacer clic en "Confirmar dirección"
+  btn.addEventListener('click', () => {
+    if (!btn.disabled) {
+      // Ocultar sección de dirección
+      document.querySelector(".direccion-completa").style.display = "none";
 
-        if (progresoActual < 30) {
-          progresoActual = 30;
-          progreso.style.setProperty('--progreso', progresoActual + '%');
-          progreso.innerText = progresoActual + '%';
-        }
-      });
+      // Mostrar sección de tipo de vivienda
+      document.querySelector(".tipo-vivienda").style.display = "block";
+
+      // Aumentar progreso si aún no lo hemos hecho
+      if (progresoActual < 20) {
+        progresoActual = 20;
+        progreso.style.setProperty('--progreso', progresoActual + '%');
+        progreso.innerText = progresoActual + '%';
+      }
+    }
+  });
+
+  // Selección de tipo de vivienda
+  const opciones = document.querySelectorAll('.opcion');
+  opciones.forEach(op => {
+    op.addEventListener('click', () => {
+      opciones.forEach(o => o.classList.remove('selected'));
+      op.classList.add('selected');
+
+      // Actualizar progreso
+      if (progresoActual < 30) {
+        progresoActual = 30;
+        progreso.style.setProperty('--progreso', progresoActual + '%');
+        progreso.innerText = progresoActual + '%';
+      }
     });
-  </script>
+  });
+</script>
 
 </body>
 </html>
