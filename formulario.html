@@ -1055,12 +1055,12 @@ const btnOferta = document.getElementById('btn-ver-oferta');
 precioInput.addEventListener('input', validarOferta);
 
 function validarOferta() {
-  const valor = precioInput.value.trim();
-  const esValido = motivoSeleccionado && valor !== '' && !isNaN(valor) && Number(valor) > 0;
+  const esValido = motivoSeleccionado;
 
   btnOferta.disabled = !esValido;
   btnOferta.classList.toggle('active', esValido);
 }
+
 
 // Al hacer clic en Ver oferta
 btnOferta.addEventListener('click', () => {
