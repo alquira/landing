@@ -13,75 +13,108 @@
       font-family: 'Lato', sans-serif;
     }
 
-  body {
-  background-color: #f7f7f7;
-  color: #333;
-}
+    body {
+      background-color: #f7f7f7;
+      color: #333;
+    }
 
-/* Estilo para la sección de dirección completa */
-.direccion-completa {
-  margin: 40px auto;
-  max-width: 900px;
-  background: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-}
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: rgba(255, 255, 255, 0.95);
+    }
 
-/* Título de la sección */
-.direccion-completa h2 {
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 25px;
-  color: #222;
-}
+    .left {
+      display: flex;
+      align-items: center;
+    }
 
-/* Agrupación de los inputs */
-.form-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin-bottom: 25px;
-}
+    .logo {
+      height: 45px;
+    }
 
-/* Inputs de dirección */
-.form-group input {
-  flex: 1;
-  padding: 12px;
-  font-size: 16px;
-  border: none;
-  border-bottom: 2px solid #ccc;
-  background: transparent;
-  transition: border-color 0.3s ease;
-}
+    .lang-selector {
+      margin-left: 15px;
+      padding: 8px;
+      border-radius: 5px;
+      font-size: 14px;
+    }
 
-.form-group input:focus {
-  outline: none;
-  border-color: #143c3c;
-}
+    .phone {
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 23px;
+      color: rgb(0, 0, 0);
+      margin: 0px 8px;
+    }
 
-/* Botón estilo CTA */
-.cta-button {
-  background-color: #ccc;
-  color: white;
-  border: none;
-  padding: 15px 30px;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 10px;
-  width: 100%;
-  cursor: not-allowed;
-  transition: background-color 0.3s ease, cursor 0.3s ease;
-}
+    /* Sección de formulario visible */
+    .direccion-completa {
+      margin: 60px auto;
+      max-width: 900px;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
 
-/* Cuando el botón está activo */
-#btn-confirmar-direccion.active {
-  background-color: #143c3c;
-  cursor: pointer;
-}
+    .direccion-completa h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 25px;
+      color: #222;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 8px;
+    }
 
+    .form-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
 
+    .form-group input {
+      flex: 1;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-bottom: 2px solid #ccc;
+      background: transparent;
+      transition: border-color 0.3s ease;
+    }
 
+    .form-group input:focus {
+      outline: none;
+      border-color: #143c3c;
+    }
+
+    .cta-button {
+      background-color: #ccc;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 10px;
+      width: 100%;
+      cursor: not-allowed;
+      transition: background-color 0.3s ease, cursor 0.3s ease;
+    }
+
+    #btn-confirmar-direccion.active {
+      background-color: #143c3c;
+      cursor: pointer;
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .form-group {
+        flex-direction: column;
+      }
+    }
   </style>
 </head>
 <body>
@@ -95,33 +128,43 @@
       </select>
     </div>
     <div class="right">
-      <span class="phone"></span>
+      <span class="phone">+34 680 83 49 80</span>
     </div>
   </header>
 
-  
-  
- <section class="direccion-completa" style="display: none; margin: 40px auto; max-width: 900px; background: white; padding: 30px; border-radius: 12px;">
-  <h2>Confirma tu dirección completa</h2>
-  <div class="form-group">
-    <input type="text" id="cp2" placeholder="C.P. *" required />
-    <input type="text" id="numero2" placeholder="Número *" required />
-    <input type="text" id="bloque2" placeholder="Bloque" />
-    <input type="text" id="escalera2" placeholder="Escalera" />
-    <input type="text" id="piso2" placeholder="Piso *" required />
-    <input type="text" id="puerta2" placeholder="Puerta *" required />
-  </div>
-  <button id="btn-confirmar-direccion" class="cta-button" style="width: 100%;" disabled>Confirmar dirección</button>
-</section>
+  <section class="direccion-completa">
+    <h2>Confirma tu dirección completa</h2>
+    <div class="form-group">
+      <input type="text" id="cp2" placeholder="C.P. *" required />
+      <input type="text" id="numero2" placeholder="Número *" required />
+      <input type="text" id="bloque2" placeholder="Bloque" />
+      <input type="text" id="escalera2" placeholder="Escalera" />
+      <input type="text" id="piso2" placeholder="Piso *" required />
+      <input type="text" id="puerta2" placeholder="Puerta *" required />
+    </div>
+    <button id="btn-confirmar-direccion" class="cta-button" disabled>Confirmar dirección</button>
+  </section>
 
-
-
-
- 
-  
   <script>
-   
-   
+    // Activar botón solo si se rellenan campos obligatorios
+    const campos = ['cp2', 'numero2', 'piso2', 'puerta2'];
+    const boton = document.getElementById('btn-confirmar-direccion');
+
+    campos.forEach(id => {
+      document.getElementById(id).addEventListener('input', () => {
+        const todoLleno = campos.every(id => document.getElementById(id).value.trim() !== '');
+        boton.disabled = !todoLleno;
+        boton.classList.toggle('active', todoLleno);
+      });
+    });
+
+    // Acción al hacer clic (puedes modificarla por envío o redirección)
+    boton.addEventListener('click', () => {
+      if (!boton.disabled) {
+        alert('¡Dirección confirmada!');
+        // window.location.href = 'gracias.html'; // ← si quieres redirigir
+      }
+    });
   </script>
 
 </body>
