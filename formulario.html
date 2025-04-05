@@ -1126,56 +1126,107 @@ btnFinal.addEventListener('click', (e) => {
 
 
 
-function enviarAZapier() {
-  const datos = {
-    direccion: {
-      cp: document.getElementById('cp2').value,
-      numero: document.getElementById('numero2').value,
-      bloque: document.getElementById('bloque2').value,
-      escalera: document.getElementById('escalera2').value,
-      piso: document.getElementById('piso2').value,
-      puerta: document.getElementById('puerta2').value
-    },
-    tipo_vivienda: document.querySelector('.tipo-vivienda .opcion.selected')?.dataset.tipo || '',
-    relacion_exterior: document.querySelector('.relacion-exterior .opcion.selected')?.dataset.exterior || '',
-    superficie: parseInt(document.getElementById('slider-superficie').value),
-    espacios: {
-      habitaciones: parseInt(document.querySelector('[data-tipo="habitaciones"]').textContent),
-      banos: parseInt(document.querySelector('[data-tipo="banos"]').textContent),
-      ascensor: parseInt(document.querySelector('[data-tipo="ascensor"]').textContent),
-      garaje: parseInt(document.querySelector('[data-tipo="garaje"]').textContent)
-    },
-    estado_vivienda: document.querySelector('.estado-opcion.selected')?.dataset.estado || '',
-    habitacion_actual: document.querySelector('.habitada-opcion.selected')?.dataset.habitada || '',
-    motivo_venta: document.querySelector('.motivo-opcion.selected')?.dataset.motivo || '',
-    precio_esperado: document.getElementById('precioEsperado').value,
-    contacto: {
-      nombre: document.getElementById('nombre').value,
-      apellidos: document.getElementById('apellidos').value,
-      email: document.getElementById('email').value,
-      telefono: document.getElementById('prefijo').value + document.getElementById('telefono').value
-    }
+function guardarEnLocalStorage(parte, valor) {
+  const datos = JSON.parse(localStorage.getItem('formulario') || '{}');
+  datos[parte] = valor;
+  localStorage.setItem('formulario', JSON.stringify(datos));
+}
+
+// Guardar dirección
+document.getElementById('btn-confirmar-direccion').addEventListener('click', () => {
+  const direccion = {
+    cp: document.getElementById('cp2').value,
+    numero: document.getElementById('numero2').value,
+    bloque: document.getElementById('bloque2').value,
+    escalera: document.getElementById('escalera2').value,
+    piso: document.getElementById('piso2').value,
+    puerta: document.getElementById('puerta2').value
   };
+  guardarEnLocalStorage('direccion', direccion);
+});
+
+// Guardar tipo vivienda
+document.querySelectorAll('.tipo-vivienda .opcion').forEach(op => {
+  op.addEventListener('click', () => {
+    guardarEnLocalStorage('tipo_vivienda', op.dataset.tipo);
+  });
+});
+
+// Guardar relación exterior
+document.querySelectorAll('.relacion-exterior .opcion').forEach(op => {
+  op.addEventListener('click', () => {
+    guardarEnLocalStorage('relacion_exterior', op.dataset.exterior);
+  });
+});
+
+// Guardar superficie
+document.getElementById('btn-superficie').addEventListener('click', () => {
+  const superficie = parseInt(document.getElementById('slider-superficie').value);
+  guardarEnLocalStorage('superficie', superficie);
+});
+
+// Guardar espacios principales
+document.getElementById('btn-continuar-espacios').addEventListener('click', () => {
+  const espacios = {
+    habitaciones: parseInt(document.querySelector('[data-tipo="habitaciones"]').textContent),
+    banos: parseInt(document.querySelector('[data-tipo="banos"]').textContent),
+    ascensor: parseInt(document.querySelector('[data-tipo="ascensor"]').textContent),
+    garaje: parseInt(document.querySelector('[data-tipo="garaje"]').textContent)
+  };
+  guardarEnLocalStorage('espacios', espacios);
+});
+
+// Guardar estado vivienda
+document.querySelectorAll('.estado-opcion').forEach(op => {
+  op.addEventListener('click', () => {
+    guardarEnLocalStorage('estado_vivienda', op.dataset.estado);
+  });
+});
+
+// Guardar ocupación
+document.querySelectorAll('.habitada-opcion').forEach(op => {
+  op.addEventListener('click', () => {
+    guardarEnLocalStorage('habitacion_actual', op.dataset.habitada);
+  });
+});
+
+// Guardar motivo y precio
+document.querySelectorAll('.motivo-opcion').forEach(op => {
+  op.addEventListener('click', () => {
+    guardarEnLocalStorage('motivo_venta', op.dataset.motivo);
+  });
+});
+document.getElementById('precioEsperado').addEventListener('input', () => {
+  guardarEnLocalStorage('precio_esperado', document.getElementById('precioEsperado').value);
+});
+
+// Guardar contacto y enviar a Zapier
+document.getElementById('btn-final').addEventListener('click', (e) => {
+  e.preventDefault();
+
+  const contacto = {
+    nombre: document.getElementById('nombre').value,
+    apellidos: document.getElementById('apellidos').value,
+    email: document.getElementById('email').value,
+    telefono: document.getElementById('prefijo').value + document.getElementById('telefono').value
+  };
+  guardarEnLocalStorage('contacto', contacto);
+
+  const datos = JSON.parse(localStorage.getItem('formulario') || '{}');
 
   fetch("https://hooks.zapier.com/hooks/catch/20702921/2c0ticj/", {
     method: "POST",
+    mode: "no-cors",
     headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(datos)
-  })
-  .then(response => {
-    if (response.ok) {
-      alert("✅ Datos enviados correctamente a Zapier.");
-    } else {
-      alert("❌ Error al enviar a Zapier.");
-    }
-  })
-  .catch(error => {
-    console.error("Error al enviar:", error);
-    alert("❌ Fallo de red al enviar los datos.");
   });
-}
+
+  alert('✅ Datos enviados. ¡Gracias por completar el formulario!');
+  localStorage.removeItem('formulario'); // limpia después de enviar
+});
+
 
     
 </script>
