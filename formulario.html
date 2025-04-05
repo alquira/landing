@@ -871,26 +871,31 @@ select:focus {
 
 
   <script>
-  const campos = ['cp2', 'numero2', 'piso2', 'puerta2'];
+document.addEventListener('DOMContentLoaded', function () {
   const btn = document.getElementById('btn-confirmar-direccion');
   const progreso = document.getElementById('progreso');
-
   let progresoActual = 10;
 
-function validarDireccionCompleta() {
-  const completo = campos.every(id => document.getElementById(id).value.trim() !== '');
-  btn.disabled = !completo;
-  btn.classList.toggle('active', completo);
-}
+  const campos = [
+    document.getElementById('cp2'),
+    document.getElementById('numero2'),
+    document.getElementById('piso2'),
+    document.getElementById('puerta2')
+  ];
 
-// Ejecutar validación al cargar por si hay campos llenos
-validarDireccionCompleta();
+  function validarDireccionCompleta() {
+    const completo = campos.every(input => input && input.value.trim() !== '');
+    btn.disabled = !completo;
+    btn.classList.toggle('active', completo);
+  }
 
-// Escuchar cambios en campos obligatorios
-campos.forEach(id => {
-  document.getElementById(id).addEventListener('input', validarDireccionCompleta);
-});
+  // Validar en tiempo real al escribir
+  campos.forEach(input => {
+    input.addEventListener('input', validarDireccionCompleta);
+  });
 
+  // Validar al cargar por si ya están llenos
+  validarDireccionCompleta();
 
   // Al hacer clic en "Confirmar dirección"
   btn.addEventListener('click', () => {
@@ -902,7 +907,7 @@ campos.forEach(id => {
       progreso.innerText = progresoActual + '%';
     }
   });
-
+});
   // Tipo de vivienda → pasa a relación con el exterior
   const opcionesVivienda = document.querySelectorAll('.tipo-vivienda .opcion');
   opcionesVivienda.forEach(op => {
