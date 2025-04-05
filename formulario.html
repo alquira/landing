@@ -1188,46 +1188,55 @@ document.querySelectorAll('.habitada-opcion').forEach(op => {
 });
 
 // Guardar motivo y precio
-document.querySelectorAll('.motivo-opcion').forEach(op => {
-  op.addEventListener('click', () => {
-    guardarEnLocalStorage('motivo_venta', op.dataset.motivo);
-  });
-});
-document.getElementById('precioEsperado').addEventListener('input', () => {
-  guardarEnLocalStorage('precio_esperado', document.getElementById('precioEsperado').value);
-});
-
-// Guardar contacto y enviar a Zapier
-document.getElementById('btn-final').addEventListener('click', (e) => {
-  e.preventDefault();
-
-  const contacto = {
-    nombre: document.getElementById('nombre').value,
-    apellidos: document.getElementById('apellidos').value,
-    email: document.getElementById('email').value,
-    telefono: document.getElementById('prefijo').value + document.getElementById('telefono').value
-  };
-  guardarEnLocalStorage('contacto', contacto);
-
+function enviarAZapierComoQuery() {
   const datos = JSON.parse(localStorage.getItem('formulario') || '{}');
 
-  // Enviar a Zapier (sin no-cors para asegurarte de que llega)
+  // Aplanar el objeto para convertirlo en querystring
+  const flatData = {};
+
+  // Dirección
+  for (const key in datos.direccion) {
+    flatData[`direccion_${key}`] = datos.direccion[key];
+  }
+
+  // Espacios
+  for (const key in datos.espacios) {
+    flatData[`espacios_${key}`] = datos.espacios[key];
+  }
+
+  // Otros campos directos
+  flatData.tipo_vivienda = datos.tipo_vivienda;
+  flatData.relacion_exterior = datos.relacion_exterior;
+  flatData.superficie = datos.superficie;
+  flatData.estado_vivienda = datos.estado_vivienda;
+  flatData.habitacion_actual = datos.habitacion_actual;
+  flatData.motivo_venta = datos.motivo_venta;
+  flatData.precio_esperado = datos.precio_esperado;
+
+  // Contacto
+  for (const key in datos.contacto) {
+    flatData[`contacto_${key}`] = datos.contacto[key];
+  }
+
+  const body = new URLSearchParams(flatData);
+
   fetch("https://hooks.zapier.com/hooks/catch/20702921/2c0ticj/", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/x-www-form-urlencoded"
     },
-    body: JSON.stringify(datos)
+    body: body
   })
-  .then(res => {
-    alert("✅ Datos enviados correctamente a Zapier");
+  .then(() => {
+    alert("✅ Datos enviados correctamente a Zapier.");
     localStorage.removeItem('formulario');
   })
   .catch(err => {
-    alert("❌ Error al enviar a Zapier");
+    alert("❌ Error al enviar los datos.");
     console.error(err);
   });
-});
+}
+
 
 
     
