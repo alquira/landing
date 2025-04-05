@@ -871,31 +871,26 @@ select:focus {
 
 
   <script>
-document.addEventListener('DOMContentLoaded', function () {
+  const campos = ['cp2', 'numero2', 'piso2', 'puerta2'];
   const btn = document.getElementById('btn-confirmar-direccion');
   const progreso = document.getElementById('progreso');
+
   let progresoActual = 10;
 
-  const campos = [
-    document.getElementById('cp2'),
-    document.getElementById('numero2'),
-    document.getElementById('piso2'),
-    document.getElementById('puerta2')
-  ];
+function validarDireccionCompleta() {
+  const completo = campos.every(id => document.getElementById(id).value.trim() !== '');
+  btn.disabled = !completo;
+  btn.classList.toggle('active', completo);
+}
 
-  function validarDireccionCompleta() {
-    const completo = campos.every(input => input && input.value.trim() !== '');
-    btn.disabled = !completo;
-    btn.classList.toggle('active', completo);
-  }
+// Ejecutar validación al cargar por si hay campos llenos
+validarDireccionCompleta();
 
-  // Validar en tiempo real al escribir
-  campos.forEach(input => {
-    input.addEventListener('input', validarDireccionCompleta);
-  });
+// Escuchar cambios en campos obligatorios
+campos.forEach(id => {
+  document.getElementById(id).addEventListener('input', validarDireccionCompleta);
+});
 
-  // Validar al cargar por si ya están llenos
-  validarDireccionCompleta();
 
   // Al hacer clic en "Confirmar dirección"
   btn.addEventListener('click', () => {
@@ -907,7 +902,7 @@ document.addEventListener('DOMContentLoaded', function () {
       progreso.innerText = progresoActual + '%';
     }
   });
-});
+
   // Tipo de vivienda → pasa a relación con el exterior
   const opcionesVivienda = document.querySelectorAll('.tipo-vivienda .opcion');
   opcionesVivienda.forEach(op => {
@@ -1109,6 +1104,7 @@ function validarContacto() {
     apellidos.value.trim() !== '' &&
     email.value.trim() !== '' &&
     telefono.value.trim() !== '' &&
+    acepta.checked;
 
   btnFinal.disabled = !valido;
   btnFinal.classList.toggle('active', valido);
@@ -1117,6 +1113,7 @@ function validarContacto() {
 [nombre, apellidos, email, telefono, acepta].forEach(el =>
   el.addEventListener('input', validarContacto)
 );
+acepta.addEventListener('change', validarContacto);
 
 // Evento final
 btnFinal.addEventListener('click', (e) => {
