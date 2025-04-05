@@ -1104,6 +1104,7 @@ function validarContacto() {
     apellidos.value.trim() !== '' &&
     email.value.trim() !== '' &&
     telefono.value.trim() !== '' &&
+    acepta.checked;
 
   btnFinal.disabled = !valido;
   btnFinal.classList.toggle('active', valido);
@@ -1112,6 +1113,7 @@ function validarContacto() {
 [nombre, apellidos, email, telefono, acepta].forEach(el =>
   el.addEventListener('input', validarContacto)
 );
+acepta.addEventListener('change', validarContacto);
 
 // Evento final
 btnFinal.addEventListener('click', (e) => {
