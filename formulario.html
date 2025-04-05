@@ -1114,11 +1114,6 @@ function validarContacto() {
 );
 acepta.addEventListener('change', validarContacto);
 
-// Evento final
-btnFinal.addEventListener('click', (e) => {
-  e.preventDefault();
-  enviarAZapierComoQuery();
-});
 
 
 function guardarEnLocalStorage(parte, valor) {
@@ -1186,7 +1181,7 @@ document.querySelectorAll('.habitada-opcion').forEach(op => {
 });
 
 
-    btnFinal.addEventListener('click', (e) => {
+  btnFinal.addEventListener('click', (e) => {
   e.preventDefault();
 
   // Recuperamos los datos que ya existen
@@ -1206,6 +1201,7 @@ document.querySelectorAll('.habitada-opcion').forEach(op => {
   // Enviamos
   enviarAZapierComoQuery();
 });
+
 
 
     
