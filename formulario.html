@@ -1185,6 +1185,30 @@ document.querySelectorAll('.habitada-opcion').forEach(op => {
   });
 });
 
+
+    btnFinal.addEventListener('click', (e) => {
+  e.preventDefault();
+
+  // Recuperamos los datos que ya existen
+  let datos = JSON.parse(localStorage.getItem('formulario') || '{}');
+
+  // Agregamos los datos de contacto
+  datos.contacto = {
+    nombre: document.getElementById('nombre').value.trim(),
+    apellidos: document.getElementById('apellidos').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    telefono: document.getElementById('prefijo').value + document.getElementById('telefono').value.trim()
+  };
+
+  // Guardamos actualizado
+  localStorage.setItem('formulario', JSON.stringify(datos));
+
+  // Enviamos
+  enviarAZapierComoQuery();
+});
+
+
+    
 // Guardar motivo y precio
 function enviarAZapierComoQuery() {
   const datos = JSON.parse(localStorage.getItem('formulario') || '{}');
@@ -1201,6 +1225,8 @@ function enviarAZapierComoQuery() {
   for (const key in datos.espacios) {
     flatData[`espacios_${key}`] = datos.espacios[key];
   }
+
+  
 
   // Otros campos directos
   flatData.tipo_vivienda = datos.tipo_vivienda;
