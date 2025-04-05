@@ -853,12 +853,12 @@ select:focus {
         <input type="tel" id="telefono" required />
       </div>
     </div>
-
-    <button id="btn-final" class="cta-button" disabled>Continuar</button>
- <div class="checkboxes">
+<div class="checkboxes">
       <label><input type="checkbox" id="acepta" required /> Acepto el <a href="#">Aviso de Privacidad</a> y los <a href="#">Términos y Condiciones</a>.</label>
     </div>
    
+    <button id="btn-final" class="cta-button" disabled>Continuar</button>
+ 
   </form>
 </section>
 
@@ -1070,9 +1070,6 @@ btnOferta.addEventListener('click', () => {
       progreso.style.setProperty('--progreso', progresoActual + '%');
       progreso.innerText = progresoActual + '%';
     }
-
-    alert('🎉 ¡Gracias! Ya tenemos toda la info para calcular tu oferta.');
-    // Aquí puedes mostrar resumen final o enviar el formulario
   }
 });
 
@@ -1214,17 +1211,22 @@ document.getElementById('btn-final').addEventListener('click', (e) => {
 
   const datos = JSON.parse(localStorage.getItem('formulario') || '{}');
 
+  // Enviar a Zapier (sin no-cors para asegurarte de que llega)
   fetch("https://hooks.zapier.com/hooks/catch/20702921/2c0ticj/", {
     method: "POST",
-    mode: "no-cors",
     headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(datos)
+  })
+  .then(res => {
+    alert("✅ Datos enviados correctamente a Zapier");
+    localStorage.removeItem('formulario');
+  })
+  .catch(err => {
+    alert("❌ Error al enviar a Zapier");
+    console.error(err);
   });
-
-  alert('✅ Datos enviados. ¡Gracias por completar el formulario!');
-  localStorage.removeItem('formulario'); // limpia después de enviar
 });
 
 
