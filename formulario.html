@@ -1117,10 +1117,8 @@ acepta.addEventListener('change', validarContacto);
 // Evento final
 btnFinal.addEventListener('click', (e) => {
   e.preventDefault();
-  alert('🎉 ¡Formulario completado! Nos pondremos en contacto contigo pronto.');
-  // Aquí podrías enviar los datos con fetch o mostrar resumen final
+  enviarAZapierComoQuery();
 });
-
 
 
 function guardarEnLocalStorage(parte, valor) {
