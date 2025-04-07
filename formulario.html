@@ -861,6 +861,9 @@ select:focus {
  
   </form>
 </section>
+<div id="mensaje-final" style="display: none; text-align: center; font-size: 24px; font-weight: bold; color: #143c3c; padding: 40px;">
+  ✅ ¡Gracias por rellenar el formulario!
+</div>
 
 
 
@@ -1065,6 +1068,13 @@ function validarOferta() {
 // Al hacer clic en Ver oferta
 btnOferta.addEventListener('click', () => {
   if (!btnOferta.disabled) {
+    // GUARDAR motivo y precio
+    const motivo = document.querySelector('.motivo-opcion.selected')?.dataset.motivo || '';
+    const precio = document.getElementById('precioEsperado').value || '';
+
+    guardarEnLocalStorage('motivo_venta', motivo);
+    guardarEnLocalStorage('precio_esperado', precio);
+
     if (progresoActual < 90) {
       progresoActual = 90;
       progreso.style.setProperty('--progreso', progresoActual + '%');
@@ -1072,6 +1082,7 @@ btnOferta.addEventListener('click', () => {
     }
   }
 });
+
 
 
 // Mostrar datos de contacto tras "Ver oferta"
@@ -1181,8 +1192,13 @@ document.querySelectorAll('.habitada-opcion').forEach(op => {
 });
 
 
-  btnFinal.addEventListener('click', (e) => {
+  let formularioEnviado = false;
+
+btnFinal.addEventListener('click', (e) => {
   e.preventDefault();
+
+  if (formularioEnviado) return; // Previene múltiples envíos
+  formularioEnviado = true;
 
   // Recuperamos los datos que ya existen
   let datos = JSON.parse(localStorage.getItem('formulario') || '{}');
@@ -1200,8 +1216,11 @@ document.querySelectorAll('.habitada-opcion').forEach(op => {
 
   // Enviamos
   enviarAZapierComoQuery();
-});
 
+  // Oculta formulario y muestra mensaje de gracias
+  document.querySelector('.datos-contacto').style.display = 'none';
+  document.getElementById('mensaje-final').style.display = 'block';
+});
 
 
     
