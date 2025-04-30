@@ -1259,6 +1259,21 @@ function enviarAZapierComoQuery() {
 
   const body = new URLSearchParams(flatData);
 
+  fetch("https://adqira-production.up.railway.app/leads", {
+  method: "POST",
+  headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body: body
+        })
+        .then(() => {
+          console.log("✅ Datos enviados correctamente a Adqira.");
+        })
+        .catch(err => {
+          console.error("❌ Error al enviar datos a Adqira:", err);
+        });
+
+
   fetch("https://hooks.zapier.com/hooks/catch/20702921/2c0ticj/", {
     method: "POST",
     headers: {
