@@ -642,19 +642,37 @@ select:focus {
   </div>
 
 
-  <!-- Dirección completa -->
-  <section class="direccion-completa">
-    <h2>Confirma tu dirección completa</h2>
-    <div class="form-group">
-      <input type="text" id="cp2" placeholder="C.P. *" required />
-      <input type="text" id="numero2" placeholder="Calle y Número *" required />
-      <input type="text" id="bloque2" placeholder="Bloque" />
-      <input type="text" id="escalera2" placeholder="Escalera" />
-      <input type="text" id="piso2" placeholder="Piso *" required />
-      <input type="text" id="puerta2" placeholder="Puerta *" required />
+ <section class="direccion-completa">
+  <h2>Confirma tu dirección completa</h2>
+
+  <gmpx-api-loader key="AIzaSyB1KQrDX0S3qYlIkHtUwi6AnaBQYyFM2bM" solution-channel="GMP_QB_addressselection_v4_cABC"></gmpx-api-loader>
+
+  <gmpx-split-layout row-layout-min-width="600" style="margin: auto;">
+    <div class="panel" slot="fixed">
+      <div>
+        <img class="sb-title-icon" src="https://fonts.gstatic.com/s/i/googlematerialicons/location_pin/v5/24px.svg" alt="">
+        <span class="sb-title">Localiza La Dirección de Tu Vivienda</span>
+      </div>
+
+      <input style="padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px; width: 100%; margin: 10px;" id="location-input" placeholder="Introduce tu dirección completa" />
+
+      <!-- Campos ocultos para autocompletado -->
+      <input type="hidden" id="locality-input" />
+      <input type="hidden" id="administrative_area_level_1-input" />
+      <input type="hidden" id="postal_code-input" />
+      <input type="hidden" id="country-input" />
+
+
+      <button id="btn-confirmar-direccion" class="cta-button" disabled>Confirmar dirección</button>
     </div>
-    <button id="btn-confirmar-direccion" class="cta-button" disabled>Confirmar dirección</button>
-  </section>
+
+   <gmp-map slot="main">
+  <gmp-advanced-marker></gmp-advanced-marker>
+</gmp-map>
+</section>
 
      <!-- Tipo de vivienda -->
   <section class="tipo-vivienda">
@@ -876,29 +894,108 @@ select:focus {
 
 
   <script>
-  const campos = ['cp2', 'numero2', 'piso2', 'puerta2'];
-  const btn = document.getElementById('btn-confirmar-direccion');
-  const progreso = document.getElementById('progreso');
 
-  let progresoActual = 10;
 
-function validarDireccionCompleta() {
-  const completo = campos.every(id => document.getElementById(id).value.trim() !== '');
-  btn.disabled = !completo;
-  btn.classList.toggle('active', completo);
-}
 
-// Ejecutar validación al cargar por si hay campos llenos
-validarDireccionCompleta();
 
-// Escuchar cambios en campos obligatorios
-campos.forEach(id => {
-  document.getElementById(id).addEventListener('input', validarDireccionCompleta);
-});
+    import { APILoader } from 'https://ajax.googleapis.com/ajax/libs/@googlemaps/extended-component-library/0.6.11/index.min.js';
+
+  const CONFIG = {
+    mapOptions: {
+      center: { lat: 39.4699, lng: -0.3763 }, // Valencia centro
+      zoom: 14,
+      mapId: '1401fbd3424e87afbcc5ada9',
+      streetViewControl: true,
+      fullscreenControl: true,
+      zoomControl: true,
+    },
+    mapsApiKey: "AIzaSyB1KQrDX0S3qYlIkHtUwi6AnaBQYyFM2bMk",
+  };
+
+  const SHORT_NAMES = new Set(['street_number', 'postal_code', 'administrative_area_level_1']);
+
+  const COMPONENTS = [
+    'location',
+    'locality',
+    'administrative_area_level_1',
+    'postal_code',
+    'country',
+  ];
+
+  function getInput(id) {
+    return document.getElementById(`${id}-input`);
+  }
+
+  function fillForm(place) {
+    const getComponent = (type) => {
+      const component = place.address_components?.find(c => c.types.includes(type));
+      return component
+        ? (SHORT_NAMES.has(type) ? component.short_name : component.long_name)
+        : '';
+    };
+const routeComponent = getComponent('route') || '';
+const streetNumber = getComponent('street_number') || '';
+const locationText = `${streetNumber} ${routeComponent}`.trim();
+
+    COMPONENTS.forEach(type => {
+      const value = type === 'location' ? locationText : getComponent(type);
+      const input = getInput(type);
+      if (input) input.value = value;
+    });
+
+    activarBotonSiValido();
+  }
+
+  function renderPosition(place) {
+    const map = document.querySelector('gmp-map');
+    const marker = document.querySelector('gmp-advanced-marker');
+
+    if (place.geometry?.location) {
+      map.center = place.geometry.location;
+      marker.position = place.geometry.location;
+    }
+  }
+
+  async function initMap() {
+    const { Autocomplete } = await APILoader.importLibrary('places');
+
+    await customElements.whenDefined('gmp-map');
+    document.querySelector('gmp-map').innerMap.setOptions(CONFIG.mapOptions);
+
+    const autocomplete = new Autocomplete(getInput('location'), {
+      fields: ['address_components', 'geometry'],
+      types: ['address'],
+    });
+
+    autocomplete.addListener('place_changed', () => {
+      const place = autocomplete.getPlace();
+      if (!place.geometry) return;
+      renderPosition(place);
+      fillForm(place);
+    });
+  }
+
+  function activarBotonSiValido() {
+    const input = getInput('location');
+    const boton = document.getElementById('btn-confirmar-direccion');
+    if (input?.value.trim()) {
+      boton.disabled = false;
+      boton.classList.add('active');
+    }
+  }
+
+  // Evento extra por si el usuario pega texto o lo escribe manualmente
+  document.getElementById('location-input').addEventListener('input', activarBotonSiValido);
+
+    let progresoActual = 10;
+
+  initMap();
+
 
 
   // Al hacer clic en "Confirmar dirección"
-  btn.addEventListener('click', () => {
+  const btn = document.getElementById('btn-confirmar-direccion');
+btn.addEventListener('click', () => {
     if (!btn.disabled) {
       document.querySelector(".direccion-completa").style.display = "none";
       document.querySelector(".tipo-vivienda").style.display = "block";
