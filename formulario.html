@@ -615,6 +615,92 @@ select:focus {
   cursor: pointer;
 }
 
+.servicios-adqira {
+  padding: 60px 20px;
+  background-color: #f8f8f8;
+  text-align: center;
+}
+
+.servicios-title {
+  font-size: 30px;
+  margin-bottom: 40px;
+  color: #143c3c;
+}
+
+.planes-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+.plan {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+  padding: 30px;
+  max-width: 400px;
+  flex: 1;
+  text-align: left;
+  border-top: 6px solid #143c3c;
+}
+
+.plan h3 {
+  font-size: 22px;
+  color: #143c3c;
+  margin-bottom: 20px;
+}
+
+.plan ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 30px;
+}
+
+.plan ul li {
+  margin-bottom: 10px;
+  padding-left: 20px;
+  position: relative;
+  font-size: 16px;
+  color: #444;
+}
+
+.plan ul li::before {
+  content: '\2713';
+  position: absolute;
+  left: 0;
+  color: #28a745;
+  font-weight: bold;
+}
+
+.plan ul li span {
+  display: block;
+  font-size: 13px;
+  color: #888;
+  margin-top: 2px;
+}
+
+.precios p {
+  font-size: 16px;
+  margin: 5px 0;
+  color: #333;
+}
+
+.premium {
+  border-color: #ffc107;
+}
+
+.gratuito {
+  border-color: #28a745;
+}
+
+@media (max-width: 768px) {
+  .planes-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+</style>
 
     
   </style>
@@ -662,11 +748,11 @@ select:focus {
     <p>¿Por qué necesitamos esta información?</p>
     <div class="opciones">
       <div class="opcion" data-tipo="chalet">
-        <img src="select.png" alt="Chalet">
+        <img src="https://imanagers.es/adqira/select.png" alt="Chalet">
         <span>Chalet</span>
       </div>
       <div class="opcion" data-tipo="piso">
-        <img src="select2.png" alt="Piso">
+        <img src="https://imanagers.es/adqira/select2.png" alt="Piso">
         <span>Piso</span>
       </div>
     </div>
@@ -677,11 +763,11 @@ select:focus {
   <p>Indica si tu vivienda es interior o exterior</p>
   <div class="opciones">
     <div class="opcion" data-exterior="interior">
-      <img src="select3.png" alt="Interior">
+      <img src="https://imanagers.es/adqira/select3.png" alt="Interior">
       <span>Interior</span>
     </div>
     <div class="opcion" data-exterior="exterior">
-      <img src="select4.png" alt="Exterior">
+      <img src="https://imanagers.es/adqira/select4.png" alt="Exterior">
       <span>Exterior</span>
     </div>
   </div>
@@ -715,7 +801,7 @@ select:focus {
   <div class="contadores">
     <!-- Habitaciones -->
     <div class="contador">
-      <img src="habitaciones.png" alt="Habitaciones">
+      <img src="https://imanagers.es/adqira/habitaciones.png" alt="Habitaciones">
       <div class="botones">
         <button class="menos">–</button>
         <span class="valor" data-tipo="habitaciones">1</span>
@@ -726,7 +812,7 @@ select:focus {
 
     <!-- Baños -->
     <div class="contador">
-      <img src="banos.png" alt="Baños">
+      <img src="https://imanagers.es/adqira/banos.png" alt="Baños">
       <div class="botones">
         <button class="menos">–</button>
         <span class="valor" data-tipo="banos">1</span>
@@ -737,7 +823,7 @@ select:focus {
 
     <!-- Ascensor -->
     <div class="contador">
-      <img src="ascensor.png" alt="Ascensor">
+      <img src="https://imanagers.es/adqira/ascensor.png" alt="Ascensor">
       <div class="botones">
         <button class="menos">–</button>
         <span class="valor" data-tipo="ascensor">0</span>
@@ -748,7 +834,7 @@ select:focus {
 
     <!-- Garaje -->
     <div class="contador">
-      <img src="garaje.png" alt="Garaje">
+      <img src="https://imanagers.es/adqira/garaje.png" alt="Garaje">
       <div class="botones">
         <button class="menos">–</button>
         <span class="valor" data-tipo="garaje">0</span>
@@ -769,19 +855,19 @@ select:focus {
 
   <div class="estados">
     <div class="estado-opcion" data-estado="reformado">
-      <img src="recien.png" alt="Recién reformado">
+      <img src="https://imanagers.es/adqira/recien.png" alt="Recién reformado">
       <h4>Recién reformado</h4>
       <p>Menos de 6 años de antigüedad o reforma reciente</p>
     </div>
 
     <div class="estado-opcion" data-estado="buen">
-      <img src="buenestado.png" alt="Buen estado">
+      <img src="https://imanagers.es/adqira/buenestado.png" alt="Buen estado">
       <h4>Buen estado</h4>
       <p>Necesita pequeñas renovaciones de los acabados</p>
     </div>
 
     <div class="estado-opcion" data-estado="reforma">
-      <img src="cura.png" alt="Necesita reforma">
+      <img src="https://imanagers.es/adqira/cura.png" alt="Necesita reforma">
       <h4>Necesita reforma</h4>
       <p>Necesita reformas en la mayoría de las estancias</p>
     </div>
@@ -861,13 +947,50 @@ select:focus {
  
   </form>
 </section>
-<div id="mensaje-final" style="display: none; text-align: center; font-size: 24px; font-weight: bold; color: #143c3c; padding: 40px;">
-  ✅ ¡Gracias por rellenar el formulario!
-</div>
+  <section class="servicios-adqira">
+  <h2 class="servicios-title">Servicios a elegir</h2>
+  <div class="planes-container">
+    <!-- Plan Premium -->
+    <div class="plan premium">
+      <h3>Servicio Premium ADQIRA</h3>
+      <ul>
+        <li>✓ Valoración gratuita</li>
+        <li>✓ Reportaje fotográfico profesional</li>
+        <li>✓ Vídeo profesional</li>
+        <li>✓ Tour Virtual</li>
+        <li>✓ Planos a Escala por Arquitecto</li>
+        <li>✓ Clientes compradores cualificados <span>(Garantía de venta 60 días)</span></li>
+        <li>✓ Certificado energético</li>
+        <li>✓ Gestión de visitas por profesional</li>
+        <li>✓ Gestión documental</li>
+        <li>✓ Acompañamiento hasta notaría</li>
+      </ul>
+      <div class="precios">
+        <p><strong>499€</strong> pago único</p>
+        <p><strong>199€/mes</strong> (3 cuotas)</p>
+        <p><strong>1.499€</strong> a éxito (solo si vendes)</p>
+      </div>
+    </div>
+
+    <!-- Plan Gratuito -->
+    <div class="plan gratuito">
+      <h3>Servicio gratuito ADQIRA</h3>
+      <ul>
+        <li>✓ Valoración gratuita</li>
+        <li>✓ Tú haces las fotos y publicas</li>
+        <li>✓ Clientes compradores cualificados <span>(Garantía de venta 60 días)</span></li>
+        <li>✓ Gestión de visitas por profesional</li>
+        <li>✓ Gestión documental</li>
+        <li>✓ Acompañamiento hasta notaría</li>
+      </ul>
+      <div class="precios">
+        <p><strong>0€</strong> Sin coste</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 
-
-  
 
     <!-- Medidor de progreso -->
   <div class="progreso-container">
@@ -876,108 +999,29 @@ select:focus {
 
 
   <script>
+  const campos = ['cp2', 'numero2', 'piso2', 'puerta2'];
+  const btn = document.getElementById('btn-confirmar-direccion');
+  const progreso = document.getElementById('progreso');
 
+  let progresoActual = 10;
 
+function validarDireccionCompleta() {
+  const completo = campos.every(id => document.getElementById(id).value.trim() !== '');
+  btn.disabled = !completo;
+  btn.classList.toggle('active', completo);
+}
 
+// Ejecutar validación al cargar por si hay campos llenos
+validarDireccionCompleta();
 
-    import { APILoader } from 'https://ajax.googleapis.com/ajax/libs/@googlemaps/extended-component-library/0.6.11/index.min.js';
-
-  const CONFIG = {
-    mapOptions: {
-      center: { lat: 39.4699, lng: -0.3763 }, // Valencia centro
-      zoom: 14,
-      mapId: '1401fbd3424e87afbcc5ada9',
-      streetViewControl: true,
-      fullscreenControl: true,
-      zoomControl: true,
-    },
-    mapsApiKey: "AIzaSyB1KQrDX0S3qYlIkHtUwi6AnaBQYyFM2bMk",
-  };
-
-  const SHORT_NAMES = new Set(['street_number', 'postal_code', 'administrative_area_level_1']);
-
-  const COMPONENTS = [
-    'location',
-    'locality',
-    'administrative_area_level_1',
-    'postal_code',
-    'country',
-  ];
-
-  function getInput(id) {
-    return document.getElementById(${id}-input);
-  }
-
-  function fillForm(place) {
-    const getComponent = (type) => {
-      const component = place.address_components?.find(c => c.types.includes(type));
-      return component
-        ? (SHORT_NAMES.has(type) ? component.short_name : component.long_name)
-        : '';
-    };
-
-    const locationText = ${getComponent('street_number')} ${getComponent('route')}.trim();
-
-    COMPONENTS.forEach(type => {
-      const value = type === 'location' ? locationText : getComponent(type);
-      const input = getInput(type);
-      if (input) input.value = value;
-    });
-
-    activarBotonSiValido();
-  }
-
-  function renderPosition(place) {
-    const map = document.querySelector('gmp-map');
-    const marker = document.querySelector('gmp-advanced-marker');
-
-    if (place.geometry?.location) {
-      map.center = place.geometry.location;
-      marker.position = place.geometry.location;
-    }
-  }
-
-  async function initMap() {
-    const { Autocomplete } = await APILoader.importLibrary('places');
-
-    await customElements.whenDefined('gmp-map');
-    document.querySelector('gmp-map').innerMap.setOptions(CONFIG.mapOptions);
-
-    const autocomplete = new Autocomplete(getInput('location'), {
-      fields: ['address_components', 'geometry'],
-      types: ['address'],
-    });
-
-    autocomplete.addListener('place_changed', () => {
-      const place = autocomplete.getPlace();
-      if (!place.geometry) return;
-      renderPosition(place);
-      fillForm(place);
-    });
-  }
-
-  function activarBotonSiValido() {
-    const input = getInput('location');
-    const boton = document.getElementById('btn-confirmar-direccion');
-    if (input?.value.trim()) {
-      boton.disabled = false;
-      boton.classList.add('active');
-    }
-  }
-
-  // Evento extra por si el usuario pega texto o lo escribe manualmente
-  document.getElementById('location-input').addEventListener('input', activarBotonSiValido);
-
-    let progresoActual = 10;
-
-  initMap();
-
+// Escuchar cambios en campos obligatorios
+campos.forEach(id => {
+  document.getElementById(id).addEventListener('input', validarDireccionCompleta);
+});
 
 
   // Al hacer clic en "Confirmar dirección"
- const btn = document.getElementById('btn-confirmar-direccion');
-btn.addEventListener('click', () => {
-
+  btn.addEventListener('click', () => {
     if (!btn.disabled) {
       document.querySelector(".direccion-completa").style.display = "none";
       document.querySelector(".tipo-vivienda").style.display = "block";
@@ -1273,32 +1317,37 @@ document.querySelectorAll('.habitada-opcion').forEach(op => {
 
   let formularioEnviado = false;
 
+// Mostrar sección de planes tras formulario de contacto válido
 btnFinal.addEventListener('click', (e) => {
   e.preventDefault();
-
-  if (formularioEnviado) return; // Previene múltiples envíos
+  if (formularioEnviado) return;
   formularioEnviado = true;
 
-  // Recuperamos los datos que ya existen
+  // Guardar datos de contacto
   let datos = JSON.parse(localStorage.getItem('formulario') || '{}');
-
-  // Agregamos los datos de contacto
   datos.contacto = {
     nombre: document.getElementById('nombre').value.trim(),
     apellidos: document.getElementById('apellidos').value.trim(),
     email: document.getElementById('email').value.trim(),
     telefono: document.getElementById('prefijo').value + document.getElementById('telefono').value.trim()
   };
-
-  // Guardamos actualizado
   localStorage.setItem('formulario', JSON.stringify(datos));
 
-  // Enviamos
   enviarAZapierComoQuery();
 
-  // Oculta formulario y muestra mensaje de gracias
   document.querySelector('.datos-contacto').style.display = 'none';
-  document.getElementById('mensaje-final').style.display = 'block';
+  document.querySelector('.servicios-adqira').style.display = 'block';
+});
+
+// Redireccionar al checkout al seleccionar un plan
+document.querySelectorAll('.plan').forEach(plan => {
+  plan.addEventListener('click', () => {
+    const tipo = plan.classList.contains('premium') ? 'premium' : 'gratuito';
+    const datos = JSON.parse(localStorage.getItem('formulario') || '{}');
+    datos.plan = tipo;
+    localStorage.setItem('formulario', JSON.stringify(datos));
+    window.location.href = 'checkout.html';
+  });
 });
 
 
