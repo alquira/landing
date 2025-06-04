@@ -642,37 +642,19 @@ select:focus {
   </div>
 
 
- <section class="direccion-completa">
-  <h2>Confirma tu dirección completa</h2>
-
-  <gmpx-api-loader key="AIzaSyB1KQrDX0S3qYlIkHtUwi6AnaBQYyFM2bM" solution-channel="GMP_QB_addressselection_v4_cABC"></gmpx-api-loader>
-
-  <gmpx-split-layout row-layout-min-width="600" style="margin: auto;">
-    <div class="panel" slot="fixed">
-      <div>
-        <img class="sb-title-icon" src="https://fonts.gstatic.com/s/i/googlematerialicons/location_pin/v5/24px.svg" alt="">
-        <span class="sb-title">Localiza La Dirección de Tu Vivienda</span>
-      </div>
-
-      <input style="padding: 10px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 8px; width: 100%; margin: 10px;" id="location-input" placeholder="Introduce tu dirección completa" />
-
-      <!-- Campos ocultos para autocompletado -->
-      <input type="hidden" id="locality-input" />
-      <input type="hidden" id="administrative_area_level_1-input" />
-      <input type="hidden" id="postal_code-input" />
-      <input type="hidden" id="country-input" />
-
-
-      <button id="btn-confirmar-direccion" class="cta-button" disabled>Confirmar dirección</button>
+  <!-- Dirección completa -->
+  <section class="direccion-completa">
+    <h2>Confirma tu dirección completa</h2>
+    <div class="form-group">
+      <input type="text" id="cp2" placeholder="C.P. *" required />
+      <input type="text" id="numero2" placeholder="Calle y Número *" required />
+      <input type="text" id="bloque2" placeholder="Bloque" />
+      <input type="text" id="escalera2" placeholder="Escalera" />
+      <input type="text" id="piso2" placeholder="Piso *" required />
+      <input type="text" id="puerta2" placeholder="Puerta *" required />
     </div>
-
-   <gmp-map slot="main">
-  <gmp-advanced-marker></gmp-advanced-marker>
-</gmp-map>
-</section>
+    <button id="btn-confirmar-direccion" class="cta-button" disabled>Confirmar dirección</button>
+  </section>
 
      <!-- Tipo de vivienda -->
   <section class="tipo-vivienda">
@@ -923,7 +905,7 @@ select:focus {
   ];
 
   function getInput(id) {
-    return document.getElementById(`${id}-input`);
+    return document.getElementById(${id}-input);
   }
 
   function fillForm(place) {
@@ -933,9 +915,8 @@ select:focus {
         ? (SHORT_NAMES.has(type) ? component.short_name : component.long_name)
         : '';
     };
-const routeComponent = getComponent('route') || '';
-const streetNumber = getComponent('street_number') || '';
-const locationText = `${streetNumber} ${routeComponent}`.trim();
+
+    const locationText = ${getComponent('street_number')} ${getComponent('route')}.trim();
 
     COMPONENTS.forEach(type => {
       const value = type === 'location' ? locationText : getComponent(type);
@@ -994,8 +975,9 @@ const locationText = `${streetNumber} ${routeComponent}`.trim();
 
 
   // Al hacer clic en "Confirmar dirección"
-  const btn = document.getElementById('btn-confirmar-direccion');
+ const btn = document.getElementById('btn-confirmar-direccion');
 btn.addEventListener('click', () => {
+
     if (!btn.disabled) {
       document.querySelector(".direccion-completa").style.display = "none";
       document.querySelector(".tipo-vivienda").style.display = "block";
@@ -1330,12 +1312,12 @@ function enviarAZapierComoQuery() {
 
   // Dirección
   for (const key in datos.direccion) {
-    flatData[`direccion_${key}`] = datos.direccion[key];
+    flatData[direccion_${key}] = datos.direccion[key];
   }
 
   // Espacios
   for (const key in datos.espacios) {
-    flatData[`espacios_${key}`] = datos.espacios[key];
+    flatData[espacios_${key}] = datos.espacios[key];
   }
 
   
@@ -1351,7 +1333,7 @@ function enviarAZapierComoQuery() {
 
   // Contacto
   for (const key in datos.contacto) {
-    flatData[`contacto_${key}`] = datos.contacto[key];
+    flatData[contacto_${key}] = datos.contacto[key];
   }
 
   const body = new URLSearchParams(flatData);
