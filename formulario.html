@@ -744,7 +744,7 @@ select:focus {
       <input style="padding: 10px;
     font-size: 14px;
     border: 1px solid #ccc;
-    border-radius: 8px; width: 100%; margin: 10px;" id="location-input" placeholder="Introduce tu dirección completa" />
+    border-radius: 8px; width: 90%; margin: 10px;" id="location-input" placeholder="Introduce tu dirección completa: Calle Número" />
 
       <!-- Campos ocultos para autocompletado -->
       <input type="hidden" id="locality-input" />
@@ -1045,24 +1045,45 @@ select:focus {
     return document.getElementById(`${id}-input`);
   }
 
-  function fillForm(place) {
-    const getComponent = (type) => {
-      const component = place.address_components?.find(c => c.types.includes(type));
-      return component
-        ? (SHORT_NAMES.has(type) ? component.short_name : component.long_name)
-        : '';
-    };
-
-    const locationText = `${getComponent('street_number')} ${getComponent('route')}`.trim();
-
-    COMPONENTS.forEach(type => {
-      const value = type === 'location' ? locationText : getComponent(type);
-      const input = getInput(type);
-      if (input) input.value = value;
-    });
-
-    activarBotonSiValido();
+ function fillForm(place) {
+  if (!place.geometry || !place.address_components) {
+    alert('Por favor selecciona una dirección válida del autocompletado.');
+    return;
   }
+
+  const components = place.address_components;
+
+  const getComponent = (type) => {
+    const comp = components.find(c => c.types.includes(type));
+    return comp ? (SHORT_NAMES.has(type) ? comp.short_name : comp.long_name) : '';
+  };
+
+  const streetNumber = getComponent('street_number');
+  const route = getComponent('route');
+  const locality = getComponent('locality') || getComponent('sublocality') || '';
+  const postalCode = getComponent('postal_code');
+  const region = getComponent('administrative_area_level_1');
+  const country = getComponent('country');
+
+  // Validación estricta
+  if (!route || !streetNumber) {
+    alert('Introduce una dirección que incluya calle y número de portal.');
+    document.getElementById('location-input').value = '';
+    return;
+  }
+
+  const fullAddress = `${route} ${streetNumber}${locality ? ', ' + locality : ''}${postalCode ? ', ' + postalCode : ''}${region ? ', ' + region : ''}${country ? ', ' + country : ''}`;
+  document.getElementById('location-input').value = fullAddress;
+
+  // Rellenar los campos hidden
+  document.getElementById('locality-input').value = locality;
+  document.getElementById('postal_code-input').value = postalCode;
+  document.getElementById('administrative_area_level_1-input').value = region;
+  document.getElementById('country-input').value = country;
+
+  activarBotonSiValido();
+}
+
 
   function renderPosition(place) {
     const map = document.querySelector('gmp-map');
