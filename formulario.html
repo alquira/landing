@@ -1368,12 +1368,11 @@ function guardarEnLocalStorage(parte, valor) {
 // Guardar dirección
 document.getElementById('btn-confirmar-direccion').addEventListener('click', () => {
   const direccion = {
-    cp: document.getElementById('cp2').value,
-    numero: document.getElementById('numero2').value,
-    bloque: document.getElementById('bloque2').value,
-    escalera: document.getElementById('escalera2').value,
-    piso: document.getElementById('piso2').value,
-    puerta: document.getElementById('puerta2').value
+    direccion_completa: document.getElementById('location-input').value,
+    localidad: document.getElementById('locality-input').value,
+    postal_code: document.getElementById('postal_code-input').value,
+    region: document.getElementById('administrative_area_level_1-input').value,
+    pais: document.getElementById('country-input').value
   };
   guardarEnLocalStorage('direccion', direccion);
 });
